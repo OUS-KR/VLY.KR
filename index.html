@@ -19,9 +19,9 @@
 		
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap">
-    <link rel="stylesheet" href="https://site-assets.vly.kr/inc/themes/star/plugins/global/plugins.bundle.css?202309061713">
-    <link rel="stylesheet" href="https://site-assets.vly.kr/inc/themes/star/css/style.bundle.css?202312120052">
-    <link rel="stylesheet" href="https://site-assets.vly.kr/inc/common.css?202310171632">
+    <link rel="stylesheet" href="https://site-assets.vly.kr/inc/themes/star/plugins/global/plugins.bundle.css?202506131311">
+    <link rel="stylesheet" href="https://site-assets.vly.kr/inc/themes/star/css/style.bundle.css?202506131311">
+    <link rel="stylesheet" href="https://site-assets.vly.kr/inc/common.css?202506131311">
     
     
     
@@ -367,7 +367,8 @@
                             
                             
                             <div id="kt_app_content_container" class="app-container container-fluid">
-                                                                
+                                
+                                
                                                                 
                                 <div class="card shadow-sm text-center mt-5 mt-xl-8 mb-5 mb-xl-8">
                                                                 <ins class="adsbygoogle"
@@ -381,59 +382,65 @@
                                 </script>
                                                                 </div>
                                 
-                                                                
+                                
+                                
                                 <article>
                                     
                                     
-                                                                                                            <div id="giscus-container"></div>
-                                    <script>
-                                        function setThemeMode() {
-                                            document.querySelector('#kt_app_theme_mode_menu').addEventListener('click', () => {
-                                                const iframe = document.querySelector('iframe.giscus-frame');
-                                                if (!iframe) return;
-
-                                                iframe.contentWindow.postMessage(
-                                                    {
-                                                        giscus: {
-                                                            setConfig: {
-                                                                theme: localStorage.getItem('data-bs-theme'),
+                                    <section>
+                                        
+                                        
+                                        
+                                        <div id="giscus-container"></div>
+                                        <script>
+                                            function setThemeMode() {
+                                                document.querySelector('#kt_app_theme_mode_menu').addEventListener('click', () => {
+                                                    const iframe = document.querySelector('iframe.giscus-frame');
+                                                    if (!iframe) return;
+                                                    
+                                                    iframe.contentWindow.postMessage(
+                                                        {
+                                                            giscus: {
+                                                                setConfig: {
+                                                                    theme: localStorage.getItem('data-bs-theme'),
+                                                                },
                                                             },
                                                         },
-                                                    },
-                                                    'https://giscus.app'
-                                                );
-                                            });
-                                        }
+                                                        'https://giscus.app'
+                                                    );
+                                                });
+                                            }
+                                            
+                                            function loadGiscus() {
+                                                const container = document.getElementById('giscus-container');
+                                                while (container.firstChild) container.removeChild(container.firstChild);
+                                                
+                                                const script = document.createElement('script');
+                                                script.src = 'https://giscus.app/client.js';
+                                                script.setAttribute('data-repo', 'OUS-KR/VLY.KR');
+                                                script.setAttribute('data-repo-id', 'R_kgDOOr_OkA');
+                                                script.setAttribute('data-category', 'Announcements');
+                                                script.setAttribute('data-category-id', 'DIC_kwDOOr_OkM4CqSiL');
+                                                script.setAttribute('data-mapping', 'pathname');
+                                                script.setAttribute('data-strict', '0');
+                                                script.setAttribute('data-reactions-enabled', '1');
+                                                script.setAttribute('data-emit-metadata', '1');
+                                                script.setAttribute('data-input-position', 'top');
+                                                script.setAttribute('data-theme', localStorage.getItem('data-bs-theme'));
+                                                script.setAttribute('data-lang', 'ko');
+                                                script.setAttribute('data-loading', 'lazy');
+                                                script.setAttribute('crossorigin', 'anonymous');
+                                                script.setAttribute('async', '');
+                                                
+                                                container.appendChild(script);
+                                            }
+                                            
+                                            setThemeMode();
+                                            loadGiscus();
+                                        </script>
                                         
-                                        function loadGiscus() {
-                                            const container = document.getElementById('giscus-container');
-                                            while (container.firstChild) container.removeChild(container.firstChild);
-
-                                            const script = document.createElement('script');
-                                            script.src = 'https://giscus.app/client.js';
-                                            script.setAttribute('data-repo', 'OUS-KR/VLY.KR');
-                                            script.setAttribute('data-repo-id', 'R_kgDOOr_OkA');
-                                            script.setAttribute('data-category', 'Announcements');
-                                            script.setAttribute('data-category-id', 'DIC_kwDOOr_OkM4CqSiL');
-                                            script.setAttribute('data-mapping', 'pathname');
-                                            script.setAttribute('data-strict', '0');
-                                            script.setAttribute('data-reactions-enabled', '1');
-                                            script.setAttribute('data-emit-metadata', '1');
-                                            script.setAttribute('data-input-position', 'top');
-                                            script.setAttribute('data-theme', localStorage.getItem('data-bs-theme'));
-                                            script.setAttribute('data-lang', 'ko');
-                                            script.setAttribute('data-loading', 'lazy');
-                                            script.setAttribute('crossorigin', 'anonymous');
-                                            script.setAttribute('async', '');
-
-                                            container.appendChild(script);
-                                        }
                                         
-                                        setThemeMode();
-                                        loadGiscus();
-                                    </script>
-                                                                        
-                                    
+                                    </section>
                                 </article>
                                 
                                                                 
@@ -448,7 +455,8 @@
                                 </script>
                                                                 </div>
                                 
-                                                                
+                                
+                                
                                 
                             </div>
                             
