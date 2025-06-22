@@ -18,8 +18,8 @@
   - 동일한 단축 경로 존재 시 덮어쓰기
 - `VLY.KR/@{사용자 아이디}/{단축 경로}` 형태의 짧은 주소 지원
   - 사용자 단축주소 예제: [VLY.KR/@vly/links/vly-kr](https://vly.kr/@vly/links/vly-kr)
-- 단축 경로가 `links`로 시작하면 `VLY.KR/@{사용자 아이디}/@{links를 제외한 단축 경로}` 형태로 생략 가능
-  - 사용자 단축주소 예제: [VLY.KR/@vly/@vly-kr](https://vly.kr/@vly/@vly-kr)
+- 단축 경로가 `links`로 시작하면 `VLY.KR/@{사용자 아이디}/!{links를 제외한 단축 경로}` 형태로 생략 가능
+  - 사용자 단축주소 예제: [VLY.KR/@vly/!vly-kr](https://vly.kr/@vly/!vly-kr)
 
 ### [사용자 글 작성](https://github.com/OUS-KR/VLY.KR/issues/new?template=03-user-article-writing-by-issue.yml)
 
