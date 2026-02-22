@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VLY — vly.kr · Where Dutch Marshes Meet Digital Velocity</title>
+  <meta name="description" content="VLY: a Middle Dutch word for marsh and valley, echoing through New Amsterdam place names, and the compressed digital form of the adverb suffix -vely. Explore the dual identity of VLY at vly.kr." />
+  <meta property="og:title" content="VLY — vly.kr · Dutch Marsh & Digital Velocity" />
+  <meta property="og:description" content="From Middle Dutch vallei to New York's Fly Market, from -vely to -vly: the complete linguistic identity of VLY." />
+  <meta property="og:url" content="https://vly.kr" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'marsh-teal':   '#1a7a6e',
+            'dutch-orange': '#e05a10',
+            'delta-blue':   '#1848a0',
+            'mist-ivory':   '#f0ede4',
+            'reed-green':   '#4a8c5c',
+            'water-grey':   '#8ca8b8',
+            'void':         '#040608',
+          },
+          fontFamily: {
+            display: ['Cinzel', 'serif'],
+            serif:   ['DM Serif Display', 'serif'],
+            body:    ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #040608;
+      color: #f0ede4;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    canvas#bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .above { position: relative; z-index: 1; }
+
+    /* ── Typography ── */
+    .font-display  { font-family: 'Cinzel', serif; }
+    .font-serif-dm { font-family: 'DM Serif Display', serif; }
+
+    /* ── Hero giant text ── */
+    .hero-bg-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cinzel', serif;
+      font-size: clamp(10rem, 30vw, 26rem);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(26,122,110,0.18);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Cards ── */
+    .glass-card {
+      background: rgba(26,122,110,0.07);
+      border: 1px solid rgba(26,122,110,0.22);
+      border-radius: 1rem;
+      backdrop-filter: blur(6px);
+    }
+    .glass-card-orange {
+      background: rgba(224,90,16,0.08);
+      border: 1px solid rgba(224,90,16,0.25);
+      border-radius: 1rem;
+      backdrop-filter: blur(6px);
+    }
+    .glass-card-blue {
+      background: rgba(24,72,160,0.10);
+      border: 1px solid rgba(24,72,160,0.28);
+      border-radius: 1rem;
+      backdrop-filter: blur(6px);
+    }
+
+    /* ── Pill badges ── */
+    .badge-teal   { background: rgba(26,122,110,0.22); color:#5ecfbf; border:1px solid rgba(26,122,110,0.4); }
+    .badge-orange { background: rgba(224,90,16,0.20);  color:#f0904a; border:1px solid rgba(224,90,16,0.4); }
+    .badge-blue   { background: rgba(24,72,160,0.22);  color:#80a4f0; border:1px solid rgba(24,72,160,0.4); }
+    .badge-green  { background: rgba(74,140,92,0.22);  color:#82d49a; border:1px solid rgba(74,140,92,0.4); }
+    .badge        { display:inline-block; padding:0.25rem 0.85rem; border-radius:9999px; font-size:0.72rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; }
+
+    /* ── Gradient accents ── */
+    .grad-teal   { background: linear-gradient(135deg,#1a7a6e,#4a8c5c); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .grad-orange { background: linear-gradient(135deg,#e05a10,#f0904a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .grad-blue   { background: linear-gradient(135deg,#1848a0,#5078d0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .grad-tri    { background: linear-gradient(135deg,#1a7a6e,#e05a10,#1848a0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+    /* ── Dividers ── */
+    .divider { border: none; border-top: 1px solid rgba(26,122,110,0.18); margin: 0; }
+
+    /* ── Hover ── */
+    .hover-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(26,122,110,0.18); }
+
+    /* ── Nav link ── */
+    .nav-link { color: rgba(240,237,228,0.65); font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase; font-family:'Cinzel',serif; transition:color 0.2s; }
+    .nav-link:hover { color:#5ecfbf; }
+    .nav-active { color:#5ecfbf !important; }
+
+    /* ── Series pill ── */
+    .series-pill {
+      display:inline-block; padding:0.3rem 0.75rem; border-radius:0.5rem;
+      border:1px solid rgba(26,122,110,0.22); font-size:0.78rem;
+      font-family:'Cinzel',serif; font-weight:600; letter-spacing:0.05em;
+      color:rgba(240,237,228,0.55); transition:all 0.2s;
+    }
+    .series-pill:hover { border-color:#1a7a6e; color:#5ecfbf; }
+    .series-pill.active { background:rgba(26,122,110,0.22); border-color:#1a7a6e; color:#5ecfbf; }
+
+    /* ── Word pill ── */
+    .word-pill-teal   { background:rgba(26,122,110,0.15); border:1px solid rgba(26,122,110,0.35); color:#8de0d0; }
+    .word-pill-orange { background:rgba(224,90,16,0.12);  border:1px solid rgba(224,90,16,0.35);  color:#f0a06a; }
+    .word-pill-blue   { background:rgba(24,72,160,0.14);  border:1px solid rgba(24,72,160,0.35);  color:#90b4f8; }
+    .word-pill { display:inline-block; padding:0.3rem 0.85rem; border-radius:0.45rem; font-size:0.82rem; font-weight:500; margin:0.2rem; }
+
+    /* ── Lineage node ── */
+    .lineage-node {
+      background:rgba(26,122,110,0.10); border:1px solid rgba(26,122,110,0.30);
+      border-radius:0.6rem; padding:0.6rem 1rem; text-align:center; min-width:120px;
+    }
+    .lineage-arrow { color:rgba(26,122,110,0.6); font-size:1.4rem; margin:0 0.3rem; line-height:1; }
+
+    /* ── Codex table ── */
+    .codex-table th {
+      background:rgba(26,122,110,0.18); color:#5ecfbf;
+      font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.08em;
+      text-transform:uppercase; padding:0.75rem 1rem; text-align:left;
+    }
+    .codex-table td { padding:0.75rem 1rem; border-bottom:1px solid rgba(26,122,110,0.12); font-size:0.83rem; vertical-align:top; }
+    .codex-table tr:last-child td { border-bottom:none; }
+    .codex-table tr:hover td { background:rgba(26,122,110,0.06); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:#040608; }
+    ::-webkit-scrollbar-thumb { background:#1a7a6e; border-radius:3px; }
+
+    /* ── Place map grid ── */
+    .place-card {
+      background:rgba(26,122,110,0.07); border:1px solid rgba(26,122,110,0.20);
+      border-radius:0.75rem; padding:1rem 1.2rem; transition:border-color 0.2s;
+    }
+    .place-card:hover { border-color:rgba(26,122,110,0.5); }
+
+    /* ── Timeline ── */
+    .timeline-line { border-left:2px solid rgba(26,122,110,0.30); padding-left:1.5rem; margin-left:0.5rem; }
+    .timeline-dot { width:12px; height:12px; border-radius:50%; background:#1a7a6e; border:2px solid #5ecfbf; flex-shrink:0; margin-top:4px; }
+
+    /* ── Letter tile ── */
+    .letter-tile {
+      width:72px; height:72px; border-radius:0.75rem;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Cinzel',serif; font-size:2.2rem; font-weight:900;
+      border:2px solid rgba(26,122,110,0.40);
+    }
+
+    /* ── Compression bar ── */
+    .compress-bar { height:3px; border-radius:2px; transition:width 0.6s ease; }
+  </style>
+</head>
+<body class="above">
+
+<!-- ████  CANVAS  ████ -->
+<canvas id="bg"></canvas>
+
+<!-- ════════════════════════════════════════
+     HEADER
+════════════════════════════════════════ -->
+<header class="above sticky top-0 z-50 border-b border-[rgba(26,122,110,0.18)] backdrop-blur-xl" style="background:rgba(4,6,8,0.88);">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="https://vly.kr" class="font-display font-black text-2xl tracking-widest grad-teal">VLY</a>
+    <nav class="hidden md:flex items-center gap-7">
+      <a href="#identity" class="nav-link">Identity</a>
+      <a href="#dutch"    class="nav-link">Dutch Origin</a>
+      <a href="#digital"  class="nav-link">Digital Form</a>
+      <a href="#words"    class="nav-link">Words</a>
+      <a href="#codex"    class="nav-link">Codex</a>
+      <a href="#series"   class="nav-link">Series</a>
+    </nav>
+    <a href="mailto:hello@vly.kr" class="glass-card px-4 py-2 font-display text-xs tracking-widest text-[#5ecfbf] hover:bg-[rgba(26,122,110,0.18)] transition-all">
+      CONTACT
+    </a>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="above relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6">
+  <span class="hero-bg-text" aria-hidden="true">VLY</span>
+
+  <!-- badges -->
+  <div class="flex flex-wrap gap-3 justify-center mb-8">
+    <span class="badge badge-teal">DUTCH</span>
+    <span class="badge badge-orange">1600s NEW AMSTERDAM</span>
+    <span class="badge badge-blue">DIGITAL SUFFIX</span>
+    <span class="badge badge-green">PHONEME CLUSTER</span>
+  </div>
+
+  <!-- main headline -->
+  <h1 class="font-display font-black text-center leading-none mb-6"
+      style="font-size:clamp(4rem,14vw,12rem); letter-spacing:0.12em;">
+    <span class="grad-teal">V</span><span style="color:#f0ede4;">L</span><span class="grad-orange">Y</span>
+  </h1>
+
+  <!-- tagline -->
+  <p class="font-serif-dm italic text-center text-2xl md:text-3xl text-[rgba(240,237,228,0.85)] max-w-3xl mb-4 leading-relaxed">
+    Where Dutch marshes echo through New York streets,<br/>
+    and modern speed compresses every adverb.
+  </p>
+  <p class="text-center text-[rgba(240,237,228,0.50)] text-sm font-body max-w-xl mb-10 leading-relaxed">
+    <em>vly</em> — from Middle Dutch <em>valeye</em> (valley/swamp), carried into New Amsterdam,
+    now reborn as the compressed adverb form <em>‑vely → ‑vly</em>.
+    Two identities. One three-letter cluster.
+  </p>
+
+  <!-- CTA buttons -->
+  <div class="flex flex-wrap gap-4 justify-center mb-16">
+    <a href="#dutch" class="px-7 py-3 rounded-xl font-display text-sm font-bold tracking-widest text-void transition-all hover:opacity-90"
+       style="background:linear-gradient(135deg,#1a7a6e,#4a8c5c);">
+      DUTCH ORIGIN
+    </a>
+    <a href="#digital" class="glass-card px-7 py-3 font-display text-sm font-bold tracking-widest text-[#5ecfbf] hover:bg-[rgba(26,122,110,0.15)] transition-all">
+      DIGITAL FORM
+    </a>
+  </div>
+
+  <!-- stat cards -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
+    <div class="glass-card p-5 text-center hover-lift">
+      <div class="font-display font-black text-3xl grad-teal mb-1">3</div>
+      <div class="text-xs text-[rgba(240,237,228,0.55)] tracking-widest uppercase font-body">Letters</div>
+    </div>
+    <div class="glass-card-orange p-5 text-center hover-lift">
+      <div class="font-display font-black text-3xl grad-orange mb-1">1600s</div>
+      <div class="text-xs text-[rgba(240,237,228,0.55)] tracking-widest uppercase font-body">New Amsterdam Era</div>
+    </div>
+    <div class="glass-card-blue p-5 text-center hover-lift">
+      <div class="font-display font-black text-3xl grad-blue mb-1">NL</div>
+      <div class="text-xs text-[rgba(240,237,228,0.55)] tracking-widest uppercase font-body">Dutch Origin</div>
+    </div>
+    <div class="glass-card p-5 text-center hover-lift">
+      <div class="font-display font-black text-3xl grad-teal mb-1">/vli/</div>
+      <div class="text-xs text-[rgba(240,237,228,0.55)] tracking-widest uppercase font-body">Phoneme Cluster</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     DUAL IDENTITY
+════════════════════════════════════════ -->
+<section id="identity" class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <span class="badge badge-teal mb-4">DUAL IDENTITY</span>
+    <h2 class="font-display font-bold text-4xl md:text-5xl mb-4 grad-teal">Two Lives of <em>VLY</em></h2>
+    <p class="text-[rgba(240,237,228,0.60)] max-w-2xl mx-auto font-body leading-relaxed">
+      VLY carries a rare dual existence: a historical Dutch toponym still inscribed in Hudson Valley geography,
+      and an emerging digital compression pattern transforming the English adverb suffix.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <!-- card 1 -->
+    <div class="glass-card p-7 hover-lift">
+      <div class="letter-tile mb-5" style="background:rgba(26,122,110,0.15); border-color:rgba(26,122,110,0.45);">
+        <span style="color:#5ecfbf;">🌿</span>
+      </div>
+      <span class="badge badge-teal mb-3">DUTCH HERITAGE</span>
+      <h3 class="font-display font-bold text-xl mb-3" style="color:#5ecfbf;">Middle Dutch <em>valeye</em></h3>
+      <p class="text-[rgba(240,237,228,0.65)] font-body text-sm leading-relaxed mb-4">
+        Dutch settlers arriving in New Amsterdam from the 1620s carried the word <em>vly</em>
+        — a contraction of <em>vallei</em> — to name every marsh, wetland, and low-lying meadow
+        they encountered on the Hudson and Manhattan shores. The word lived on for four centuries
+        in place names like <strong>Smits Vly</strong>, <strong>Fly Market</strong>, <strong>Tenafly</strong>,
+        and <strong>Vly Mountain</strong> in the Catskills.
+      </p>
+      <div class="flex flex-wrap gap-1">
+        <span class="word-pill word-pill-teal">marsh</span>
+        <span class="word-pill word-pill-teal">valley</span>
+        <span class="word-pill word-pill-teal">wetland</span>
+        <span class="word-pill word-pill-teal">toponymy</span>
+      </div>
+    </div>
+
+    <!-- card 2 -->
+    <div class="glass-card-orange p-7 hover-lift">
+      <div class="letter-tile mb-5" style="background:rgba(224,90,16,0.12); border-color:rgba(224,90,16,0.45);">
+        <span style="color:#f0904a;">⚡</span>
+      </div>
+      <span class="badge badge-orange mb-3">DIGITAL COMPRESSION</span>
+      <h3 class="font-display font-bold text-xl mb-3" style="color:#f0904a;">‑vely → ‑vly</h3>
+      <p class="text-[rgba(240,237,228,0.65)] font-body text-sm leading-relaxed mb-4">
+        In the era of SMS, Twitter, and code comments, adverbs ending in <em>‑vely</em>
+        undergo systematic vowel deletion: <em>effectively → effctvly</em>,
+        <em>actively → actvly</em>, <em>relatively → relvly</em>.
+        The pattern is phonologically grounded — /v/ and /l/ are both sonorant-adjacent
+        consonants that survive compression — making <em>‑vly</em> a natural
+        graphemic residue of the modern adverb.
+      </p>
+      <div class="flex flex-wrap gap-1">
+        <span class="word-pill word-pill-orange">compression</span>
+        <span class="word-pill word-pill-orange">adverb</span>
+        <span class="word-pill word-pill-orange">digital</span>
+        <span class="word-pill word-pill-orange">speed</span>
+      </div>
+    </div>
+
+    <!-- card 3 -->
+    <div class="glass-card-blue p-7 hover-lift">
+      <div class="letter-tile mb-5" style="background:rgba(24,72,160,0.12); border-color:rgba(24,72,160,0.45);">
+        <span style="color:#80a4f0;">🔊</span>
+      </div>
+      <span class="badge badge-blue mb-3">PHONOLOGICAL PURITY</span>
+      <h3 class="font-display font-bold text-xl mb-3" style="color:#80a4f0;">The /v·l·i/ Cluster</h3>
+      <p class="text-[rgba(240,237,228,0.65)] font-body text-sm leading-relaxed mb-4">
+        The three-phoneme sequence /v·l·i/ is among the most phonetically constrained
+        in English: <em>labiodental fricative</em> + <em>lateral approximant</em> + <em>high front vowel</em>.
+        This cluster appears at word boundaries in natural speech
+        (e.g., <em>"of the"</em> fast-spoken as /əvli/), giving <em>vly</em>
+        an eerie familiarity despite its rarity as a written form.
+      </p>
+      <div class="flex flex-wrap gap-1">
+        <span class="word-pill word-pill-blue">/v/ labiodental</span>
+        <span class="word-pill word-pill-blue">/l/ lateral</span>
+        <span class="word-pill word-pill-blue">/i/ high front</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     DUTCH ORIGIN
+════════════════════════════════════════ -->
+<section id="dutch" class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <span class="badge badge-teal mb-4">DUTCH ORIGIN</span>
+    <h2 class="font-display font-bold text-4xl md:text-5xl mb-4">
+      <span class="grad-teal">From</span> <em class="font-serif-dm">vallei</em> <span class="grad-teal">to</span> <em class="font-serif-dm">vly</em>
+    </h2>
+    <p class="text-[rgba(240,237,228,0.60)] max-w-2xl mx-auto font-body leading-relaxed">
+      The etymology of <em>vly</em> traces a path from Proto-Germanic wetlands,
+      through Dutch colonial settlement, into the bedrock of New York geography.
+    </p>
+  </div>
+
+  <!-- lineage chain -->
+  <div class="flex flex-wrap items-center justify-center gap-2 mb-16 overflow-x-auto pb-2">
+    <div class="lineage-node">
+      <div class="text-xs text-[rgba(240,237,228,0.45)] mb-1 font-display">Proto-Germanic</div>
+      <div class="font-serif-dm italic text-lg text-[#5ecfbf]">*walhjō</div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">foreign land/valley</div>
+    </div>
+    <span class="lineage-arrow">→</span>
+    <div class="lineage-node">
+      <div class="text-xs text-[rgba(240,237,228,0.45)] mb-1 font-display">Old Dutch</div>
+      <div class="font-serif-dm italic text-lg text-[#5ecfbf]">valle</div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">valley</div>
+    </div>
+    <span class="lineage-arrow">→</span>
+    <div class="lineage-node">
+      <div class="text-xs text-[rgba(240,237,228,0.45)] mb-1 font-display">Middle Dutch</div>
+      <div class="font-serif-dm italic text-lg text-[#5ecfbf]">valeye / vlei</div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">valley / marsh</div>
+    </div>
+    <span class="lineage-arrow">→</span>
+    <div class="lineage-node" style="border-color:rgba(224,90,16,0.45); background:rgba(224,90,16,0.10);">
+      <div class="text-xs text-[rgba(240,237,228,0.45)] mb-1 font-display">New Netherland</div>
+      <div class="font-serif-dm italic text-lg" style="color:#f0904a;">vly / fly / vley</div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">wetland toponym</div>
+    </div>
+    <span class="lineage-arrow">→</span>
+    <div class="lineage-node" style="border-color:rgba(74,140,92,0.45); background:rgba(74,140,92,0.10);">
+      <div class="text-xs text-[rgba(240,237,228,0.45)] mb-1 font-display">Modern</div>
+      <div class="font-serif-dm italic text-lg" style="color:#82d49a;">vly / vlei / vlaie</div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">Hudson Valley · Afrikaans</div>
+    </div>
+  </div>
+
+  <!-- place name grid -->
+  <h3 class="font-display font-bold text-2xl mb-8 text-center grad-teal">Historic <em>‑vly</em> Place Names</h3>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🏙️</span>
+        <span class="font-display font-bold text-sm" style="color:#f0904a;">Smits Vly</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        Manhattan's East River shore. The original Dutch smithy district, later anglicised to
+        "Smith's Fly." One of the earliest recorded uses of <em>vly</em> in New Amsterdam documents, c. 1640s.
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🛒</span>
+        <span class="font-display font-bold text-sm" style="color:#f0904a;">Fly Market</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        Manhattan's great open-air market, established in the marshy East River lowlands.
+        The name "Fly" is a direct anglicisation of Dutch <em>vly</em> (swamp/low meadow),
+        possibly the origin of the term "flea market."
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">⛰️</span>
+        <span class="font-display font-bold text-sm" style="color:#5ecfbf;">Vly Mountain</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        A Catskill High Peak in Greene County, New York (elevation ~3,529 ft).
+        The name preserves the Dutch toponym for the boggy, low valley at its base.
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🏘️</span>
+        <span class="font-display font-bold text-sm" style="color:#f0904a;">Tenafly, NJ</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        Borough in Bergen County. Name derives from Dutch <em>ten vly</em> — "at the swamp" or
+        "ten swamps." One of the clearest surviving Dutch <em>vly</em> compounds in modern English place names.
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🌊</span>
+        <span class="font-display font-bold text-sm" style="color:#5ecfbf;">Sacandaga Vlaie</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        A vast 15,000-acre marsh south of Oneida Lake, now submerged beneath the Great Sacandaga Lake
+        reservoir (1930). The word <em>vlaie</em> is the spelling that absorbed the English
+        <em>sleigh</em>-influenced orthography.
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🌍</span>
+        <span class="font-display font-bold text-sm" style="color:#80a4f0;">Vlei (Afrikaans)</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        In South Africa, the same Dutch root survived as <em>vlei</em>, meaning a seasonal shallow lake
+        or wetland pan — closely parallel to the New York usage. Demonstrates the global reach of
+        Dutch colonial geography.
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🗺️</span>
+        <span class="font-display font-bold text-sm" style="color:#f0904a;">Vleigh Place, Queens</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        A street in Kew Gardens Hills, NYC, where the Dutch <em>vly</em> persists in a romanised
+        spelling influenced by <em>sleigh</em> (→ <em>vleigh</em>). The area was formerly known as
+        "Head of the Fly."
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🌿</span>
+        <span class="font-display font-bold text-sm" style="color:#5ecfbf;">Vly Creek, NY</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        Multiple streams in Delaware and Albany Counties carry the name Vly Creek,
+        consistently marking wetland corridors and marshy bottomlands.
+        Evidence of systematic Dutch topographic naming conventions.
+      </p>
+    </div>
+
+    <div class="place-card">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-xl">🏔️</span>
+        <span class="font-display font-bold text-sm" style="color:#82d49a;">Franklinton Vlaie</span>
+      </div>
+      <p class="text-xs text-[rgba(240,237,228,0.60)] leading-relaxed">
+        A swamp feeding Catskill Creek in Schoharie County. The Dutch term <em>vlaie</em>
+        was applied by settlers to distinguish boggy marsh terrain from higher pastureland.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dutch loanwords context -->
+  <div class="glass-card p-8 max-w-4xl mx-auto">
+    <h4 class="font-display font-bold text-lg mb-4 grad-teal">VLY Among Dutch Loanwords in English</h4>
+    <p class="text-[rgba(240,237,228,0.65)] font-body text-sm leading-relaxed mb-4">
+      Dutch New Amsterdam left a surprisingly deep mark on the English vocabulary of New York and beyond.
+      <em>Vly</em> belongs to the same lexical layer as <em>boss</em> (baas), <em>cookie</em> (koekje),
+      <em>stoop</em> (stoep), <em>coleslaw</em> (koolsla), <em>Yankee</em> (Jan Kees),
+      and <em>sleigh</em> (slee). All entered English through direct contact in the Hudson Valley
+      between 1620 and 1780. Unlike most Dutch loanwords, <em>vly</em> was purely topographic —
+      it named geography rather than objects — which explains why it survives almost exclusively
+      in place names rather than in common vocabulary.
+    </p>
+    <div class="flex flex-wrap gap-2">
+      <span class="word-pill word-pill-orange">boss</span>
+      <span class="word-pill word-pill-orange">cookie</span>
+      <span class="word-pill word-pill-orange">stoop</span>
+      <span class="word-pill word-pill-orange">coleslaw</span>
+      <span class="word-pill word-pill-orange">Yankee</span>
+      <span class="word-pill word-pill-orange">sleigh</span>
+      <span class="word-pill word-pill-teal font-bold">vly ←</span>
+      <span class="word-pill word-pill-orange">spook</span>
+      <span class="word-pill word-pill-orange">waffle</span>
+      <span class="word-pill word-pill-orange">scow</span>
+      <span class="word-pill word-pill-orange">cruller</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     DIGITAL FORM
+════════════════════════════════════════ -->
+<section id="digital" class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <span class="badge badge-orange mb-4">DIGITAL FORM</span>
+    <h2 class="font-display font-bold text-4xl md:text-5xl mb-4">
+      <span class="grad-orange">‑IVELY</span> <span style="color:rgba(240,237,228,0.5);">→</span>
+      <span class="grad-orange">‑VELY</span> <span style="color:rgba(240,237,228,0.5);">→</span>
+      <span class="grad-orange">‑VLY</span>
+    </h2>
+    <p class="text-[rgba(240,237,228,0.60)] max-w-2xl mx-auto font-body leading-relaxed">
+      Modern digital communication drives vowel compression in long adverbs.
+      The suffix ‑vly is the natural endpoint of this phonological reduction chain.
+    </p>
+  </div>
+
+  <!-- compression chain visual -->
+  <div class="grid md:grid-cols-3 gap-6 mb-16">
+    <!-- Stage 1 -->
+    <div class="glass-card p-7 text-center hover-lift">
+      <div class="badge badge-blue mb-4">CLASSICAL FORM</div>
+      <div class="font-display font-black text-4xl grad-blue mb-3">‑IVELY</div>
+      <div class="font-serif-dm italic text-lg text-[rgba(240,237,228,0.70)] mb-4">effectively</div>
+      <p class="text-[rgba(240,237,228,0.55)] font-body text-xs leading-relaxed mb-4">
+        The full Latin-Romance adverb: <em>‑īvus</em> + <em>‑ly</em> → <em>‑ively</em>.
+        Formal register. Three syllables beyond the stem.
+      </p>
+      <!-- bar -->
+      <div class="bg-[rgba(24,72,160,0.20)] rounded-full h-2 mb-1">
+        <div class="compress-bar bg-gradient-to-r from-[#1848a0] to-[#5078d0]" style="width:100%"></div>
+      </div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">Compression: 0% — full form</div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="glass-card-orange p-7 text-center hover-lift">
+      <div class="badge badge-orange mb-4">INTERMEDIATE</div>
+      <div class="font-display font-black text-4xl grad-orange mb-3">‑VELY</div>
+      <div class="font-serif-dm italic text-lg text-[rgba(240,237,228,0.70)] mb-4">effctvely</div>
+      <p class="text-[rgba(240,237,228,0.55)] font-body text-xs leading-relaxed mb-4">
+        Informal written shorthand: interior vowels elided, suffix still visible.
+        Common in code comments, chat, quick notes.
+      </p>
+      <div class="bg-[rgba(224,90,16,0.20)] rounded-full h-2 mb-1">
+        <div class="compress-bar bg-gradient-to-r from-[#e05a10] to-[#f0904a]" style="width:60%"></div>
+      </div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">Compression: ~40% shorter</div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="glass-card p-7 text-center hover-lift" style="border-color:rgba(26,122,110,0.45);">
+      <div class="badge badge-teal mb-4">COMPRESSED</div>
+      <div class="font-display font-black text-4xl grad-teal mb-3">‑VLY</div>
+      <div class="font-serif-dm italic text-lg text-[rgba(240,237,228,0.70)] mb-4">effctvly</div>
+      <p class="text-[rgba(240,237,228,0.55)] font-body text-xs leading-relaxed mb-4">
+        Maximum consonant-frame compression. All vowels removed from the suffix.
+        The <em>/v/</em> and <em>/l/</em> frame survives as the phonological skeleton.
+      </p>
+      <div class="bg-[rgba(26,122,110,0.20)] rounded-full h-2 mb-1">
+        <div class="compress-bar bg-gradient-to-r from-[#1a7a6e] to-[#4a8c5c]" style="width:25%"></div>
+      </div>
+      <div class="text-xs text-[rgba(240,237,228,0.40)]">Compression: ~75% shorter</div>
+    </div>
+  </div>
+
+  <!-- example table -->
+  <div class="glass-card overflow-x-auto">
+    <table class="codex-table w-full">
+      <thead>
+        <tr>
+          <th>Full adverb</th>
+          <th>‑vely form</th>
+          <th>‑vly form</th>
+          <th>Origin</th>
+          <th>Register</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="font-serif-dm italic text-[#f0ede4]">effectively</td>
+          <td style="color:#f0904a;">effctvely</td>
+          <td style="color:#5ecfbf;">effctvly</td>
+          <td class="text-[rgba(240,237,228,0.55)]">Latin effectīvus</td>
+          <td><span class="badge badge-blue" style="font-size:0.65rem;">formal → casual</span></td>
+        </tr>
+        <tr>
+          <td class="font-serif-dm italic text-[#f0ede4]">actively</td>
+          <td style="color:#f0904a;">actvely</td>
+          <td style="color:#5ecfbf;">actvly</td>
+          <td class="text-[rgba(240,237,228,0.55)]">Latin actīvus</td>
+          <td><span class="badge badge-teal" style="font-size:0.65rem;">professional</span></td>
+        </tr>
+        <tr>
+          <td class="font-serif-dm italic text-[#f0ede4]">relatively</td>
+          <td style="color:#f0904a;">relvely</td>
+          <td style="color:#5ecfbf;">relvly</td>
+          <td class="text-[rgba(240,237,228,0.55)]">Latin relātīvus</td>
+          <td><span class="badge badge-teal" style="font-size:0.65rem;">academic</span></td>
+        </tr>
+        <tr>
+          <td class="font-serif-dm italic text-[#f0ede4]">collectively</td>
+          <td style="color:#f0904a;">collctvely</td>
+          <td style="color:#5ecfbf;">collctvly</td>
+          <td class="text-[rgba(240,237,228,0.55)]">Latin collēctīvus</td>
+          <td><span class="badge badge-orange" style="font-size:0.65rem;">technical</span></td>
+        </tr>
+        <tr>
+          <td class="font-serif-dm italic text-[#f0ede4]">exclusively</td>
+          <td style="color:#f0904a;">exclsvely</td>
+          <td style="color:#5ecfbf;">exclsvly</td>
+          <td class="text-[rgba(240,237,228,0.55)]">Latin exclūsīvus</td>
+          <td><span class="badge badge-blue" style="font-size:0.65rem;">formal</span></td>
+        </tr>
+        <tr>
+          <td class="font-serif-dm italic text-[#f0ede4]">progressively</td>
+          <td style="color:#f0904a;">progrsvely</td>
+          <td style="color:#5ecfbf;">progrsvly</td>
+          <td class="text-[rgba(240,237,228,0.55)]">Latin prōgressus</td>
+          <td><span class="badge badge-green" style="font-size:0.65rem;">discourse</span></td>
+        </tr>
+        <tr>
+          <td class="font-serif-dm italic text-[#f0ede4]">extensively</td>
+          <td style="color:#f0904a;">extnsvely</td>
+          <td style="color:#5ecfbf;">extnsvly</td>
+          <td class="text-[rgba(240,237,228,0.55)]">Latin extēnsīvus</td>
+          <td><span class="badge badge-teal" style="font-size:0.65rem;">scholarly</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     LETTER TILES
+════════════════════════════════════════ -->
+<section class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-14">
+    <span class="badge badge-teal mb-4">PHONOLOGY</span>
+    <h2 class="font-display font-bold text-4xl mb-4 grad-teal">Three Letters, Three Worlds</h2>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-8">
+    <!-- V -->
+    <div class="glass-card p-8 text-center hover-lift">
+      <div class="letter-tile mx-auto mb-5" style="background:rgba(224,90,16,0.14); border-color:rgba(224,90,16,0.50); width:88px; height:88px;">
+        <span class="font-display font-black text-4xl" style="color:#f0904a;">V</span>
+      </div>
+      <h3 class="font-display font-bold text-xl mb-2" style="color:#f0904a;">/v/ Labiodental Fricative</h3>
+      <p class="text-[rgba(240,237,228,0.60)] text-sm font-body leading-relaxed">
+        Voiced counterpart of /f/. In Dutch, the initial <em>v-</em> of <em>vallei</em>
+        underwent lenition to become the labial approximant /v/. In English digital compression,
+        /v/ is the most stable consonant in the ‑vely frame, surviving all levels of reduction
+        because it is the semantic onset of the adverb suffix.
+      </p>
+    </div>
+    <!-- L -->
+    <div class="glass-card p-8 text-center hover-lift">
+      <div class="letter-tile mx-auto mb-5" style="background:rgba(26,122,110,0.14); border-color:rgba(26,122,110,0.50); width:88px; height:88px;">
+        <span class="font-display font-black text-4xl" style="color:#5ecfbf;">L</span>
+      </div>
+      <h3 class="font-display font-bold text-xl mb-2" style="color:#5ecfbf;">/l/ Lateral Approximant</h3>
+      <p class="text-[rgba(240,237,228,0.60)] text-sm font-body leading-relaxed">
+        Among the most sonorous consonants in English, /l/ acts as a syllable nucleus in dark-l
+        environments (e.g., ‑tle, ‑dle, ‑ble). In <em>vly</em>, /l/ bridges the fricative /v/
+        and the high vowel /i/, creating the characteristic liquid glide
+        that makes the cluster phonetically natural in rapid speech.
+      </p>
+    </div>
+    <!-- Y -->
+    <div class="glass-card p-8 text-center hover-lift">
+      <div class="letter-tile mx-auto mb-5" style="background:rgba(24,72,160,0.14); border-color:rgba(24,72,160,0.50); width:88px; height:88px;">
+        <span class="font-display font-black text-4xl" style="color:#80a4f0;">Y</span>
+      </div>
+      <h3 class="font-display font-bold text-xl mb-2" style="color:#80a4f0;">/i/ High Front Vowel</h3>
+      <p class="text-[rgba(240,237,228,0.60)] text-sm font-body leading-relaxed">
+        The final grapheme <em>y</em> in English adverbs consistently encodes /i/,
+        inherited from Old English <em>‑lice</em> → <em>‑ly</em>.
+        In <em>vly</em>, this vowel serves as both the adverb marker
+        and the echo of Dutch <em>valeye</em>'s final syllable —
+        a remarkable cross-linguistic phonological coincidence.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     WORDS / GALLERY
+════════════════════════════════════════ -->
+<section id="words" class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-14">
+    <span class="badge badge-teal mb-4">WORD GALLERY</span>
+    <h2 class="font-display font-bold text-4xl mb-4 grad-teal">‑vely Words in Three Registers</h2>
+    <p class="text-[rgba(240,237,228,0.55)] max-w-xl mx-auto font-body text-sm">
+      Every word below ends in <em>‑vely</em>, making it a candidate for the ‑vly compression pattern.
+      Colour indicates register and compression frequency.
+    </p>
+  </div>
+
+  <!-- Formal / Academic -->
+  <div class="mb-10">
+    <h3 class="font-display font-bold text-sm tracking-widest text-[#80a4f0] uppercase mb-4">Formal · Academic</h3>
+    <div class="flex flex-wrap gap-1">
+      <span class="word-pill word-pill-blue">effectively</span>
+      <span class="word-pill word-pill-blue">collectively</span>
+      <span class="word-pill word-pill-blue">exclusively</span>
+      <span class="word-pill word-pill-blue">extensively</span>
+      <span class="word-pill word-pill-blue">progressively</span>
+      <span class="word-pill word-pill-blue">comprehensively</span>
+      <span class="word-pill word-pill-blue">conclusively</span>
+      <span class="word-pill word-pill-blue">constructively</span>
+      <span class="word-pill word-pill-blue">defensively</span>
+      <span class="word-pill word-pill-blue">decisively</span>
+      <span class="word-pill word-pill-blue">expressively</span>
+      <span class="word-pill word-pill-blue">expansively</span>
+      <span class="word-pill word-pill-blue">exhaustively</span>
+      <span class="word-pill word-pill-blue">explosively</span>
+      <span class="word-pill word-pill-blue">inclusively</span>
+      <span class="word-pill word-pill-blue">intensively</span>
+      <span class="word-pill word-pill-blue">invasively</span>
+      <span class="word-pill word-pill-blue">objectively</span>
+      <span class="word-pill word-pill-blue">offensively</span>
+      <span class="word-pill word-pill-blue">oppressively</span>
+      <span class="word-pill word-pill-blue">persuasively</span>
+      <span class="word-pill word-pill-blue">possessively</span>
+      <span class="word-pill word-pill-blue">reflexively</span>
+      <span class="word-pill word-pill-blue">repressively</span>
+      <span class="word-pill word-pill-blue">selectively</span>
+      <span class="word-pill word-pill-blue">subjectively</span>
+    </div>
+  </div>
+
+  <!-- Professional / Technical -->
+  <div class="mb-10">
+    <h3 class="font-display font-bold text-sm tracking-widest text-[#f0904a] uppercase mb-4">Professional · Technical</h3>
+    <div class="flex flex-wrap gap-1">
+      <span class="word-pill word-pill-orange">actively</span>
+      <span class="word-pill word-pill-orange">adaptively</span>
+      <span class="word-pill word-pill-orange">aggressively</span>
+      <span class="word-pill word-pill-orange">alternatively</span>
+      <span class="word-pill word-pill-orange">comparatively</span>
+      <span class="word-pill word-pill-orange">competitively</span>
+      <span class="word-pill word-pill-orange">cooperatively</span>
+      <span class="word-pill word-pill-orange">creatively</span>
+      <span class="word-pill word-pill-orange">exclusively</span>
+      <span class="word-pill word-pill-orange">innovatively</span>
+      <span class="word-pill word-pill-orange">interactively</span>
+      <span class="word-pill word-pill-orange">iteratively</span>
+      <span class="word-pill word-pill-orange">negatively</span>
+      <span class="word-pill word-pill-orange">normatively</span>
+      <span class="word-pill word-pill-orange">operatively</span>
+      <span class="word-pill word-pill-orange">proactively</span>
+      <span class="word-pill word-pill-orange">productively</span>
+      <span class="word-pill word-pill-orange">reactively</span>
+      <span class="word-pill word-pill-orange">recursively</span>
+      <span class="word-pill word-pill-orange">relatively</span>
+      <span class="word-pill word-pill-orange">responsively</span>
+      <span class="word-pill word-pill-orange">sensitively</span>
+      <span class="word-pill word-pill-orange">speculatively</span>
+      <span class="word-pill word-pill-orange">tentatively</span>
+    </div>
+  </div>
+
+  <!-- Everyday / Social -->
+  <div class="mb-10">
+    <h3 class="font-display font-bold text-sm tracking-widest text-[#5ecfbf] uppercase mb-4">Everyday · Social</h3>
+    <div class="flex flex-wrap gap-1">
+      <span class="word-pill word-pill-teal">attractively</span>
+      <span class="word-pill word-pill-teal">boldly (via ‑ive)</span>
+      <span class="word-pill word-pill-teal">collectively</span>
+      <span class="word-pill word-pill-teal">descriptively</span>
+      <span class="word-pill word-pill-teal">distinctively</span>
+      <span class="word-pill word-pill-teal">effectively</span>
+      <span class="word-pill word-pill-teal">evocatively</span>
+      <span class="word-pill word-pill-teal">exclusively</span>
+      <span class="word-pill word-pill-teal">festively</span>
+      <span class="word-pill word-pill-teal">imaginatively</span>
+      <span class="word-pill word-pill-teal">impulsively</span>
+      <span class="word-pill word-pill-teal">intuitively</span>
+      <span class="word-pill word-pill-teal">lyrically (via ‑ive)</span>
+      <span class="word-pill word-pill-teal">massively</span>
+      <span class="word-pill word-pill-teal">natively</span>
+      <span class="word-pill word-pill-teal">negatively</span>
+      <span class="word-pill word-pill-teal">positively</span>
+      <span class="word-pill word-pill-teal">primitively</span>
+      <span class="word-pill word-pill-teal">punitively</span>
+      <span class="word-pill word-pill-teal">sedatively</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     FEATURE CARDS
+════════════════════════════════════════ -->
+<section class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-14">
+    <span class="badge badge-teal mb-4">FEATURES</span>
+    <h2 class="font-display font-bold text-4xl mb-4 grad-teal">Six Defining Properties</h2>
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="glass-card p-6 hover-lift">
+      <div class="text-3xl mb-3">🌾</div>
+      <h4 class="font-display font-bold text-sm tracking-wider mb-2" style="color:#5ecfbf;">TOPONYMIC FOSSIL</h4>
+      <p class="text-[rgba(240,237,228,0.60)] text-xs leading-relaxed">
+        <em>Vly</em> is a linguistic fossil — a word that ceased to function as a common noun
+        but survived for four centuries embedded in place names. Like <em>thwaite</em> (Old Norse clearing)
+        in English villages, <em>vly</em> persists in New York geography long after
+        Dutch ceased to be spoken there.
+      </p>
+    </div>
+    <div class="glass-card-orange p-6 hover-lift">
+      <div class="text-3xl mb-3">⚡</div>
+      <h4 class="font-display font-bold text-sm tracking-wider mb-2" style="color:#f0904a;">CONSONANT SKELETON</h4>
+      <p class="text-[rgba(240,237,228,0.60)] text-xs leading-relaxed">
+        In Semitic languages, consonant roots carry the core meaning while vowels encode grammar.
+        The digital ‑vly pattern mirrors this logic: the consonant skeleton /v-l/ identifies
+        the adverb suffix while speed and context fill in the missing vowel phonemes.
+      </p>
+    </div>
+    <div class="glass-card-blue p-6 hover-lift">
+      <div class="text-3xl mb-3">🔀</div>
+      <h4 class="font-display font-bold text-sm tracking-wider mb-2" style="color:#80a4f0;">CROSS-ORIGIN CONVERGENCE</h4>
+      <p class="text-[rgba(240,237,228,0.60)] text-xs leading-relaxed">
+        A rare case where a Dutch topographic term and an English morphological compression
+        produce the same three-letter string through entirely independent processes.
+        Historical geography and digital pragmatics converge in the same written form.
+      </p>
+    </div>
+    <div class="glass-card p-6 hover-lift">
+      <div class="text-3xl mb-3">🗺️</div>
+      <h4 class="font-display font-bold text-sm tracking-wider mb-2" style="color:#5ecfbf;">COLONIAL GEOGRAPHY</h4>
+      <p class="text-[rgba(240,237,228,0.60)] text-xs leading-relaxed">
+        The density of <em>vly</em>-derived place names in New York and New Jersey
+        maps the exact extent of 17th-century Dutch settlement patterns.
+        From Tenafly to Vly Mountain, the word is a cartographic record
+        of where Dutch colonists found wetlands.
+      </p>
+    </div>
+    <div class="glass-card-orange p-6 hover-lift">
+      <div class="text-3xl mb-3">📱</div>
+      <h4 class="font-display font-bold text-sm tracking-wider mb-2" style="color:#f0904a;">DIGITAL REGISTER MARKER</h4>
+      <p class="text-[rgba(240,237,228,0.60)] text-xs leading-relaxed">
+        The ‑vly compression is not random; it marks a distinct informal-professional register:
+        too fast for full spelling, too precise for emojis. It appears in commit messages,
+        Slack threads, quick emails, and code annotations — a new written register
+        born from 21st-century communication constraints.
+      </p>
+    </div>
+    <div class="glass-card-blue p-6 hover-lift">
+      <div class="text-3xl mb-3">🌍</div>
+      <h4 class="font-display font-bold text-sm tracking-wider mb-2" style="color:#80a4f0;">GLOBAL PARALLEL (VLEI)</h4>
+      <p class="text-[rgba(240,237,228,0.60)] text-xs leading-relaxed">
+        The Afrikaans <em>vlei</em> — surviving in South African wetland geography —
+        shows that the Dutch root <em>valeye</em> dispersed along two completely separate
+        colonial routes: northward to New Amsterdam/New York, and southward to the Cape Colony.
+        Two continents, one Dutch word.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     TIMELINE
+════════════════════════════════════════ -->
+<section class="above py-24 px-6 max-w-4xl mx-auto">
+  <div class="text-center mb-14">
+    <span class="badge badge-teal mb-4">TIMELINE</span>
+    <h2 class="font-display font-bold text-4xl mb-4 grad-teal">The Life of VLY</h2>
+  </div>
+
+  <div class="timeline-line space-y-10">
+
+    <div class="flex gap-4">
+      <div class="timeline-dot mt-1"></div>
+      <div>
+        <div class="font-display font-bold text-xs tracking-widest text-[rgba(240,237,228,0.45)] mb-1">3000–500 BCE</div>
+        <div class="font-display font-bold text-base mb-1" style="color:#5ecfbf;">Proto-Germanic *walhjō</div>
+        <p class="text-[rgba(240,237,228,0.55)] text-xs leading-relaxed">
+          Root meaning "foreign land" or "valley territory" in early Germanic dialects.
+          Ancestral to both the Dutch <em>vallei</em> and the Old English <em>weal</em> (Wales/foreigners).
+        </p>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="timeline-dot mt-1" style="background:#4a8c5c; border-color:#82d49a;"></div>
+      <div>
+        <div class="font-display font-bold text-xs tracking-widest text-[rgba(240,237,228,0.45)] mb-1">1100–1500 CE</div>
+        <div class="font-display font-bold text-base mb-1" style="color:#82d49a;">Middle Dutch <em>valeye / vlei</em></div>
+        <p class="text-[rgba(240,237,228,0.55)] text-xs leading-relaxed">
+          Dutch merchants and farmers in the Low Countries apply <em>vlei / valeye</em>
+          to describe flat, flooded meadowlands — a practical topographic term
+          critical for a nation built on managed water.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="timeline-dot mt-1" style="background:#e05a10; border-color:#f0904a;"></div>
+      <div>
+        <div class="font-display font-bold text-xs tracking-widest text-[rgba(240,237,228,0.45)] mb-1">1620s–1664</div>
+        <div class="font-display font-bold text-base mb-1" style="color:#f0904a;">New Amsterdam: <em>vly</em> as toponym</div>
+        <p class="text-[rgba(240,237,228,0.55)] text-xs leading-relaxed">
+          Dutch West India Company settlers name Manhattan's wetlands, tidal flats, and low meadows
+          using <em>vly</em> and its variants (<em>fly, vley</em>). Smits Vly, Collect Pond Vly,
+          and the Fly Market district are established. The British take New Amsterdam in 1664,
+          beginning anglicisation.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="timeline-dot mt-1"></div>
+      <div>
+        <div class="font-display font-bold text-xs tracking-widest text-[rgba(240,237,228,0.45)] mb-1">1700s–1800s</div>
+        <div class="font-display font-bold text-base mb-1" style="color:#5ecfbf;">Hudson Valley fossilisation</div>
+        <p class="text-[rgba(240,237,228,0.55)] text-xs leading-relaxed">
+          As Dutch recedes from everyday use, <em>vly</em> survives only in place names
+          across New York and New Jersey. Spelling variants proliferate:
+          <em>vly, fly, vley, vlaie, vleigh</em>.
+          Sacandaga Vlaie — 15,000 acres of marsh — is eventually drained and flooded (1930).
+        </p>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="timeline-dot mt-1" style="background:#1848a0; border-color:#80a4f0;"></div>
+      <div>
+        <div class="font-display font-bold text-xs tracking-widest text-[rgba(240,237,228,0.45)] mb-1">1990s–2010s</div>
+        <div class="font-display font-bold text-base mb-1" style="color:#80a4f0;">Digital compression emerges</div>
+        <p class="text-[rgba(240,237,228,0.55)] text-xs leading-relaxed">
+          SMS character limits and early internet chat drive systematic vowel deletion
+          in long English adverbs. The ‑ively → ‑vely → ‑vly compression pattern
+          emerges independently across English-language digital communication contexts.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <div class="timeline-dot mt-1" style="background:#e05a10; border-color:#f0904a;"></div>
+      <div>
+        <div class="font-display font-bold text-xs tracking-widest text-[rgba(240,237,228,0.45)] mb-1">2026</div>
+        <div class="font-display font-bold text-base mb-1" style="color:#f0904a;">vly.kr — Dual Identity Archived</div>
+        <p class="text-[rgba(240,237,228,0.55)] text-xs leading-relaxed">
+          This domain brings together both lives of <em>vly</em>: the Dutch toponymic fossil
+          and the digital adverb compression — documenting a unique convergence
+          of historical geography and computational linguistics.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     CODEX TABLE
+════════════════════════════════════════ -->
+<section id="codex" class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-14">
+    <span class="badge badge-teal mb-4">CODEX</span>
+    <h2 class="font-display font-bold text-4xl mb-4 grad-teal">The VLY Codex</h2>
+    <p class="text-[rgba(240,237,228,0.55)] max-w-xl mx-auto font-body text-sm">
+      A systematic reference of <em>vly</em> across linguistic, historical, and digital dimensions.
+    </p>
+  </div>
+
+  <div class="glass-card overflow-x-auto">
+    <table class="codex-table w-full">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Dutch Heritage Stream</th>
+          <th>Digital Compression Stream</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Form</td>
+          <td>vly / fly / vley / vlaie / vleigh</td>
+          <td>‑vly (suffix residue of ‑vely)</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Origin Language</td>
+          <td>Middle Dutch <em>valeye</em> ← Proto-Germanic <em>*walhjō</em></td>
+          <td>Old English ‑lice → ‑ly + Latin ‑īvus → ‑ive</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Era of Peak Use</td>
+          <td>1620–1780 (New Amsterdam / early New York)</td>
+          <td>2000–present (digital communication)</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Semantic Function</td>
+          <td>Topographic noun: marshy valley / wetland</td>
+          <td>Adverb marker: manner / degree suffix</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Phonology</td>
+          <td>/vlɪ/ — voiced fricative + lateral + lax vowel</td>
+          <td>/vli/ — same cluster, high front vowel endpoint</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Geographic Distribution</td>
+          <td>New York, New Jersey, Hudson Valley; Afrikaans vlei (South Africa)</td>
+          <td>Global English digital registers</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Register</td>
+          <td>Archaic / historical / toponymic</td>
+          <td>Informal-professional / digital speed writing</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Surviving Examples</td>
+          <td>Tenafly NJ, Vly Mountain NY, Vleigh Place NYC, Fly Market</td>
+          <td>effctvly, actvly, relvly, progrsvly, collctvly</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Related Forms</td>
+          <td>vlei (Afrikaans), vlaie (Hudson Valley), vley (colonial)</td>
+          <td>‑vely (intermediate), ‑ively (full), ‑ive (base)</td>
+        </tr>
+        <tr>
+          <td class="font-display font-bold text-xs tracking-wider text-[#5ecfbf]">Domain</td>
+          <td colspan="2" style="text-align:center; color:#5ecfbf; font-family:'Cinzel',serif;">vly.kr</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     SERIES NAVIGATION
+════════════════════════════════════════ -->
+<section id="series" class="above py-24 px-6 max-w-7xl mx-auto">
+  <div class="text-center mb-12">
+    <span class="badge badge-teal mb-4">SERIES</span>
+    <h2 class="font-display font-bold text-3xl mb-4 grad-teal">Suffix Domain Series</h2>
+    <p class="text-[rgba(240,237,228,0.55)] text-sm max-w-lg mx-auto font-body">
+      Each domain in the series archives one suffix, cluster, or phonological pattern in the English lexicon.
+    </p>
+  </div>
+  <div class="flex flex-wrap gap-2 justify-center">
+    <a href="https://ous.kr"  class="series-pill">‑ous</a>
+    <a href="https://ize.kr"  class="series-pill">‑ize</a>
+    <a href="https://ive.kr"  class="series-pill">‑ive</a>
+    <a href="https://ity.kr"  class="series-pill">‑ity</a>
+    <a href="https://ify.kr"  class="series-pill">‑ify</a>
+    <a href="https://ial.kr"  class="series-pill">‑ial</a>
+    <a href="https://ful.kr"  class="series-pill">‑ful</a>
+    <a href="https://ary.kr"  class="series-pill">‑ary</a>
+    <a href="https://ble.kr"  class="series-pill">‑ble</a>
+    <a href="https://rry.kr"  class="series-pill">‑rry</a>
+    <a href="https://ppy.kr"  class="series-pill">‑ppy</a>
+    <a href="https://ple.kr"  class="series-pill">‑ple</a>
+    <a href="https://bly.kr"  class="series-pill">‑bly</a>
+    <a href="https://tle.kr"  class="series-pill">‑tle</a>
+    <a href="https://dle.kr"  class="series-pill">‑dle</a>
+    <a href="https://zle.kr"  class="series-pill">‑zle</a>
+    <a href="https://vely.kr" class="series-pill">‑vely</a>
+    <a href="https://vly.kr"  class="series-pill active">‑vly</a>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- ════════════════════════════════════════
+     CONTACT + FOOTER
+════════════════════════════════════════ -->
+<section class="above py-20 px-6 text-center">
+  <div class="glass-card max-w-xl mx-auto p-10">
+    <h3 class="font-display font-bold text-2xl mb-3 grad-teal">Get in Touch</h3>
+    <p class="text-[rgba(240,237,228,0.55)] font-body text-sm mb-6">
+      Questions about the Dutch etymology of <em>vly</em>, the digital compression pattern,
+      or the suffix domain series?
+    </p>
+    <a href="mailto:hello@vly.kr"
+       class="inline-block px-8 py-3 rounded-xl font-display text-sm font-bold tracking-widest text-void transition-all hover:opacity-90"
+       style="background:linear-gradient(135deg,#1a7a6e,#4a8c5c);">
+      hello@vly.kr
+    </a>
+  </div>
+</section>
+
+<footer class="above border-t border-[rgba(26,122,110,0.18)] py-8 px-6 text-center">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <span class="font-display font-black text-xl grad-teal tracking-widest">VLY</span>
+    <span class="text-[rgba(240,237,228,0.35)] font-body text-xs">
+      © 2026 vly.kr · Middle Dutch <em>valeye</em> · Digital compression ‑vly · All rights reserved
+    </span>
+    <a href="mailto:hello@vly.kr" class="text-[rgba(240,237,228,0.35)] hover:text-[#5ecfbf] font-body text-xs transition-colors">
+      hello@vly.kr
+    </a>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════
+     CANVAS PARTICLE SYSTEM
+     Layer 1 : MarshMote      — 60 drifting teal/green particles
+     Layer 2 : VlyWord        — 22 floating vly/vley/vlei words
+     Layer 3 : WaterRipple    — 14 expanding ripple rings (new: elliptical)
+     Layer 4 : ReedLine       — 18 vertical reed-like strokes swaying
+════════════════════════════════════════ -->
+<script>
+(function(){
+  const canvas = document.getElementById('bg');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+
+  function resize(){
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // ── Colour palette ──
+  const TEAL   = 'rgba(26,122,110,';
+  const ORANGE = 'rgba(224,90,16,';
+  const BLUE   = 'rgba(24,72,160,';
+  const GREEN  = 'rgba(74,140,92,';
+
+  function rand(a,b){ return a + Math.random()*(b-a); }
+
+  // ── Layer 1 : MarshMote ──
+  class MarshMote {
+    constructor(){
+      this.reset(true);
+    }
+    reset(init){
+      this.x  = rand(0, W);
+      this.y  = init ? rand(0, H) : H + 10;
+      this.r  = rand(1, 3.5);
+      this.vx = rand(-0.3, 0.3);
+      this.vy = rand(-0.6, -0.15);
+      const pick = Math.random();
+      this.col = pick < 0.5 ? TEAL : pick < 0.8 ? GREEN : BLUE;
+      this.alpha = rand(0.04, 0.18);
+      this.life = rand(0.003, 0.007);
+      this.age  = rand(0, 1);
+    }
+    update(){
+      this.x  += this.vx;
+      this.y  += this.vy;
+      this.age += this.life;
+      if(this.y < -10 || this.age > 1) this.reset(false);
+    }
+    draw(){
+      const a = this.alpha * Math.sin(this.age * Math.PI);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+      ctx.fillStyle = this.col + a + ')';
+      ctx.fill();
+    }
+  }
+
+  // ── Layer 2 : VlyWord ──
+  const VLY_WORDS = [
+    'vly','vley','fly','vlaie','vlei',
+    'valeye','vallei','Tenafly','Smits Vly',
+    'vly.kr','effctvly','actvly','relvly',
+    'progrsvly','collctvly','exclsvly',
+    'intuitively','creatively','decisively',
+    'progressively','effectively','actively',
+    'vleigh'
+  ];
+
+  class VlyWord {
+    constructor(init){
+      this.reset(init);
+    }
+    reset(init){
+      this.word  = VLY_WORDS[Math.floor(Math.random()*VLY_WORDS.length)];
+      this.x     = rand(0.05*W, 0.95*W);
+      this.y     = init ? rand(0,H) : H + 30;
+      this.vy    = rand(-0.25, -0.08);
+      this.vx    = rand(-0.12, 0.12);
+      this.alpha = rand(0.04, 0.13);
+      this.size  = rand(10, 22);
+      this.life  = rand(0.002, 0.005);
+      this.age   = rand(0,1);
+      const p = Math.random();
+      this.col = p < 0.55 ? '#5ecfbf' : p < 0.80 ? '#f0904a' : '#80a4f0';
+    }
+    update(){
+      this.x  += this.vx;
+      this.y  += this.vy;
+      this.age += this.life;
+      if(this.y < -40 || this.age > 1) this.reset(false);
+    }
+    draw(){
+      const a = this.alpha * Math.sin(this.age * Math.PI);
+      ctx.font = `italic ${this.size}px "DM Serif Display", serif`;
+      ctx.fillStyle = this.col;
+      ctx.globalAlpha = a;
+      ctx.fillText(this.word, this.x, this.y);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // ── Layer 3 : WaterRipple (elliptical — series first) ──
+  class WaterRipple {
+    constructor(init){
+      this.reset(init);
+    }
+    reset(init){
+      this.cx     = rand(0.1*W, 0.9*W);
+      this.cy     = rand(0.1*H, 0.9*H);
+      this.rx     = init ? rand(10,80) : rand(5,20);
+      this.ry     = this.rx * rand(0.35, 0.65); // elliptical — marsh surface
+      this.maxRx  = rand(80, 220);
+      this.speed  = rand(0.4, 1.1);
+      this.alpha  = rand(0.06, 0.20);
+      this.life   = 0;
+    }
+    update(){
+      this.rx   += this.speed;
+      this.ry    = this.rx * 0.45;
+      this.life += this.speed / this.maxRx;
+      if(this.rx > this.maxRx) this.reset(false);
+    }
+    draw(){
+      const a = this.alpha * (1 - this.life);
+      ctx.beginPath();
+      ctx.ellipse(this.cx, this.cy, this.rx, this.ry, 0, 0, Math.PI*2);
+      ctx.strokeStyle = TEAL + a + ')';
+      ctx.lineWidth   = 1;
+      ctx.stroke();
+    }
+  }
+
+  // ── Layer 4 : ReedLine ──
+  class ReedLine {
+    constructor(){
+      this.reset();
+    }
+    reset(){
+      this.x      = rand(0, W);
+      this.baseY  = rand(0.4*H, H);
+      this.height = rand(60, 180);
+      this.sway   = rand(-0.008, 0.008);
+      this.phase  = rand(0, Math.PI*2);
+      this.speed  = rand(0.008, 0.025);
+      this.alpha  = rand(0.04, 0.13);
+      this.col    = Math.random() < 0.7 ? GREEN : TEAL;
+    }
+    update(){
+      this.phase += this.speed;
+    }
+    draw(){
+      const lean = Math.sin(this.phase) * 18;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.baseY);
+      ctx.quadraticCurveTo(
+        this.x + lean * 0.5, this.baseY - this.height * 0.5,
+        this.x + lean,       this.baseY - this.height
+      );
+      ctx.strokeStyle = this.col + this.alpha + ')';
+      ctx.lineWidth   = rand(1, 2.5);
+      ctx.stroke();
+    }
+  }
+
+  // ── Instantiate ──
+  const motes   = Array.from({length: 60}, () => new MarshMote());
+  const words   = Array.from({length: 22}, () => new VlyWord(true));
+  const ripples = Array.from({length: 14}, () => new WaterRipple(true));
+  const reeds   = Array.from({length: 18}, () => new ReedLine());
+
+  // ── Animation loop ──
+  function frame(){
+    ctx.clearRect(0, 0, W, H);
+
+    ripples.forEach(r => { r.update(); r.draw(); });
+    reeds.forEach(r   => { r.update(); r.draw(); });
+    motes.forEach(m   => { m.update(); m.draw(); });
+    words.forEach(w   => { w.update(); w.draw(); });
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+
+</body>
+</html>
