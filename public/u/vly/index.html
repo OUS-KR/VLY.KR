@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>‑vly | vly.kr – 영어 접미사 ‑vly의 모든 것</title>
+<meta name="description" content="영어 접미사 ‑vly: actively, bravely, lively, lovingly, actively 등 생동감 있는 부사를 만드는 접미사의 모든 것을 탐구합니다." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg:      #020309;
+    --azure:   #0ea5e9;
+    --cobalt:  #3b82f6;
+    --teal:    #14b8a6;
+    --mint:    #34d399;
+    --sky:     #7dd3fc;
+    --gold:    #f59e0b;
+    --surface: rgba(255,255,255,0.04);
+    --border:  rgba(255,255,255,0.08);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background: var(--bg);
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* top stripe */
+  .top-stripe {
+    height: 3px;
+    background: linear-gradient(90deg,var(--azure),var(--cobalt),var(--teal),var(--mint),var(--sky),var(--gold));
+    background-size: 300% 100%;
+    animation: stripeMove 4s linear infinite;
+  }
+  @keyframes stripeMove { 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
+
+  /* bg radial layers */
+  .bg-radial {
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(ellipse 70% 50% at 15% 25%, rgba(14,165,233,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 85% 75%, rgba(20,184,166,0.10) 0%, transparent 60%);
+  }
+  #particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* glass */
+  .glass {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 1rem;
+  }
+
+  /* neon */
+  .neon-azure  { color:var(--azure);  text-shadow:0 0 12px var(--azure),  0 0 30px rgba(14,165,233,0.4); }
+  .neon-cobalt { color:var(--cobalt); text-shadow:0 0 12px var(--cobalt), 0 0 30px rgba(59,130,246,0.4); }
+  .neon-teal   { color:var(--teal);   text-shadow:0 0 12px var(--teal),   0 0 30px rgba(20,184,166,0.4); }
+  .neon-mint   { color:var(--mint);   text-shadow:0 0 12px var(--mint),   0 0 30px rgba(52,211,153,0.4); }
+  .neon-gold   { color:var(--gold);   text-shadow:0 0 12px var(--gold),   0 0 30px rgba(245,158,11,0.4); }
+
+  /* reveal */
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .6s ease, transform .6s ease; }
+  .revealed { opacity:1; transform:translateY(0); }
+
+  /* avatar ring */
+  .avatar-ring {
+    border-radius:9999px; padding:4px;
+    background: conic-gradient(var(--azure),var(--cobalt),var(--teal),var(--mint),var(--azure));
+    animation: spin 6s linear infinite; display:inline-block;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .avatar-ring img { border-radius:9999px; display:block; }
+
+  /* meter */
+  .meter-bar  { height:8px; border-radius:4px; background:rgba(255,255,255,0.08); overflow:hidden; }
+  .meter-fill { height:100%; border-radius:4px; width:0; transition:width 1.4s cubic-bezier(.4,0,.2,1); }
+
+  /* pill */
+  .pill {
+    display:inline-block; padding:4px 14px; border-radius:999px;
+    font-size:.78rem; font-weight:600;
+    border:1px solid rgba(255,255,255,0.12);
+    background:rgba(255,255,255,0.05);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .pill:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(14,165,233,0.35); }
+
+  /* progress bar */
+  .prog-track { background:rgba(255,255,255,0.07); border-radius:4px; height:6px; overflow:hidden; }
+  .prog-fill  { height:100%; border-radius:4px; width:0; transition:width 1.4s ease; }
+
+  /* code block */
+  .code-block {
+    background:rgba(0,0,0,0.55);
+    border:1px solid rgba(14,165,233,0.25);
+    border-radius:.75rem; padding:1.25rem;
+    font-family:'Courier New',monospace; font-size:.8rem; line-height:1.7; overflow-x:auto;
+  }
+
+  /* timeline dot */
+  .tl-dot {
+    width:14px; height:14px; border-radius:50%;
+    background:var(--azure); box-shadow:0 0 8px var(--azure);
+    flex-shrink:0; margin-top:4px;
+  }
+
+  /* carousel */
+  .carousel-track { display:flex; transition:transform .5s ease; height:100%; }
+  .carousel-slide { min-width:100%; position:relative; }
+  .carousel-slide img { width:100%; height:100%; object-fit:cover; }
+
+  /* vinyl */
+  .vinyl {
+    width:80px; height:80px; border-radius:50%;
+    background:conic-gradient(#071520 0deg 60deg,#0c2233 60deg 120deg,#071520 120deg 180deg,#0c2233 180deg 240deg,#071520 240deg 300deg,#0c2233 300deg 360deg);
+    box-shadow:0 0 20px rgba(14,165,233,0.45); flex-shrink:0;
+  }
+  .vinyl.spinning { animation:vinylSpin 2s linear infinite; }
+  @keyframes vinylSpin { to { transform:rotate(360deg); } }
+
+  /* faq */
+  .faq-answer { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .faq-answer.open { max-height:240px; }
+
+  /* scroll to top */
+  #scrollTop {
+    position:fixed; bottom:1.5rem; right:1.5rem; z-index:9999;
+    width:44px; height:44px; border-radius:50%; border:none; cursor:pointer;
+    background:linear-gradient(135deg,var(--azure),var(--teal));
+    color:#fff; font-size:1.2rem; display:none;
+    align-items:center; justify-content:center;
+    box-shadow:0 4px 16px rgba(14,165,233,0.45);
+    transition:transform .2s;
+  }
+  #scrollTop:hover { transform:scale(1.1); }
+
+  /* kpi */
+  .kpi-card {
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:1rem; padding:1.5rem; text-align:center;
+  }
+
+  /* transform arrow */
+  .t-arrow { color:var(--azure); font-weight:700; margin:0 .5rem; }
+
+  /* velocity line — decorative animated underline */
+  .v-underline {
+    display:inline-block; position:relative;
+  }
+  .v-underline::after {
+    content:''; position:absolute; left:0; bottom:-4px;
+    width:100%; height:2px;
+    background:linear-gradient(90deg,var(--azure),var(--teal));
+    transform:scaleX(0); transform-origin:left;
+    transition:transform .4s ease;
+  }
+  .v-underline:hover::after { transform:scaleX(1); }
+
+  section { position:relative; z-index:1; }
+</style>
+</head>
+<body>
+<div class="top-stripe"></div>
+<div class="bg-radial"></div>
+<canvas id="particles-canvas"></canvas>
+
+<!-- ══════════════════════════════════════════
+     1. HERO
+══════════════════════════════════════════ -->
+<section id="hero" class="min-h-screen flex flex-col items-center justify-center px-4 py-20 text-center">
+  <div class="avatar-ring mb-6">
+    <img src="https://api.dicebear.com/9.x/shapes/svg?seed=vly" width="110" height="110" alt="vly avatar" />
+  </div>
+
+  <h1 class="font-['Space_Grotesk'] text-6xl md:text-8xl font-bold neon-azure mb-2 tracking-tight">‑vly</h1>
+  <p class="text-lg md:text-xl text-slate-400 font-['Noto_Serif_KR'] mb-6">영어 접미사 ‑vly 의 모든 것 · vly.kr</p>
+
+  <div class="glass max-w-xl w-full p-6 mb-8 text-left">
+    <h2 class="neon-cobalt font-bold text-sm uppercase tracking-widest mb-4">Core Meaning</h2>
+    <ul class="space-y-2 text-slate-300 text-sm">
+      <li>⚡ <strong class="text-white">생동감·활력 부사</strong> — ‑ive·‑ive+ly 결합, 능동적 행위 방식을 표현 (actively, lively, bravely)</li>
+      <li>🌊 <strong class="text-white">속도·흐름</strong> — 빠르거나 유연하게 진행되는 동작의 양태 (swiftly, vividly, vivaciously)</li>
+      <li>💫 <strong class="text-white">강도·명확성</strong> — 행위나 상태의 강도와 선명함을 강조 (positively, effectively, actively)</li>
+    </ul>
+  </div>
+
+  <!-- Letter Cards -->
+  <div class="flex gap-4 mb-8">
+    <div class="glass w-16 h-16 flex items-center justify-center text-2xl font-bold neon-azure  rounded-xl">v</div>
+    <div class="glass w-16 h-16 flex items-center justify-center text-2xl font-bold neon-cobalt rounded-xl">l</div>
+    <div class="glass w-16 h-16 flex items-center justify-center text-2xl font-bold neon-teal   rounded-xl">y</div>
+  </div>
+
+  <!-- Velocity Meter -->
+  <div class="glass max-w-xs w-full p-4">
+    <p class="text-xs text-slate-500 uppercase tracking-widest mb-2">Velocity Meter</p>
+    <div class="meter-bar mb-2">
+      <div id="heroMeterFill" class="meter-fill"
+           style="background:linear-gradient(90deg,var(--azure),var(--teal));"></div>
+    </div>
+    <p class="text-right text-xs text-slate-400"><span id="heroMeterVal">0</span> / 20</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     2. KPI BOARD
+══════════════════════════════════════════ -->
+<section id="kpi" class="py-16 px-4 reveal">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-center text-2xl font-bold mb-10 neon-azure font-['Space_Grotesk']">‑vly 숫자로 보기</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="kpi-card">
+        <p class="text-4xl font-bold neon-azure mb-2"><span id="kpi1">0</span>+</p>
+        <p class="text-slate-400 text-sm">‑vly 파생 부사 수</p>
+      </div>
+      <div class="kpi-card">
+        <p class="text-4xl font-bold neon-cobalt mb-2"><span id="kpi2">0</span> yr</p>
+        <p class="text-slate-400 text-sm">년 라틴·게르만어 역사</p>
+      </div>
+      <div class="kpi-card">
+        <p class="text-4xl font-bold neon-gold mb-2">∞</p>
+        <p class="text-slate-400 text-sm">Velocity &amp; Vivacity</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     3. ANNOUNCEMENT
+══════════════════════════════════════════ -->
+<section class="py-6 px-4 reveal">
+  <div class="max-w-2xl mx-auto glass p-5 text-center">
+    <p class="text-sm text-slate-400 mb-1 uppercase tracking-widest">공지</p>
+    <p class="text-white font-semibold mb-3">‑vly 접미사 사전 &amp; 학습 플랫폼 오픈!</p>
+    <a href="https://vly.kr" target="_blank"
+       class="inline-block px-6 py-2 rounded-full text-sm font-bold text-white"
+       style="background:linear-gradient(135deg,var(--azure),var(--teal));">
+      vly.kr 방문하기 →
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     4. SOCIAL LINKS
+══════════════════════════════════════════ -->
+<section class="py-10 px-4 reveal">
+  <div class="max-w-md mx-auto">
+    <h2 class="text-center text-lg font-bold mb-6 text-slate-300">Follow ‑vly</h2>
+    <div class="flex flex-col gap-3">
+      <a href="https://instagram.com/vly.kr" target="_blank"
+         class="glass flex items-center gap-3 px-5 py-3 rounded-full hover:border-pink-500 transition-colors">
+        <span class="text-xl">📸</span><span class="text-sm font-medium">Instagram · @vly.kr</span>
+      </a>
+      <a href="https://youtube.com/@vlykr" target="_blank"
+         class="glass flex items-center gap-3 px-5 py-3 rounded-full hover:border-red-500 transition-colors">
+        <span class="text-xl">▶️</span><span class="text-sm font-medium">YouTube · @vlykr</span>
+      </a>
+      <a href="https://x.com/vlykr" target="_blank"
+         class="glass flex items-center gap-3 px-5 py-3 rounded-full hover:border-sky-400 transition-colors">
+        <span class="text-xl">🐦</span><span class="text-sm font-medium">X · @vlykr</span>
+      </a>
+      <a href="https://github.com/vlykr" target="_blank"
+         class="glass flex items-center gap-3 px-5 py-3 rounded-full hover:border-slate-400 transition-colors">
+        <span class="text-xl">🐙</span><span class="text-sm font-medium">GitHub · vlykr</span>
+      </a>
+      <a href="mailto:hello@vly.kr"
+         class="glass flex items-center gap-3 px-5 py-3 rounded-full hover:border-yellow-400 transition-colors">
+        <span class="text-xl">✉️</span><span class="text-sm font-medium">Email · hello@vly.kr</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     5. WORD EXAMPLES
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-2xl font-bold mb-8 neon-cobalt font-['Space_Grotesk']">‑vly 단어 모음</h2>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <span class="pill" style="border-color:var(--azure);  color:var(--azure);">actively</span>
+      <span class="pill" style="border-color:var(--cobalt); color:var(--cobalt);">bravely</span>
+      <span class="pill" style="border-color:var(--teal);   color:var(--teal);">lively</span>
+      <span class="pill" style="border-color:var(--mint);   color:var(--mint);">lovely</span>
+      <span class="pill" style="border-color:var(--sky);    color:var(--sky);">vividly</span>
+      <span class="pill" style="border-color:var(--gold);   color:var(--gold);">swiftly</span>
+      <span class="pill" style="border-color:var(--azure);  color:var(--azure);">effectively</span>
+      <span class="pill" style="border-color:var(--cobalt); color:var(--cobalt);">positively</span>
+      <span class="pill" style="border-color:var(--teal);   color:var(--teal);">creatively</span>
+      <span class="pill" style="border-color:var(--mint);   color:var(--mint);">decisively</span>
+      <span class="pill" style="border-color:var(--sky);    color:var(--sky);">progressively</span>
+      <span class="pill" style="border-color:var(--gold);   color:var(--gold);">attractively</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     6. VELOCITY SHOWCASE (Transformations)
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8 text-center neon-azure font-['Space_Grotesk']">‑vly 변환 쇼케이스</h2>
+    <div class="glass p-6 space-y-4">
+      <div class="flex items-center flex-wrap gap-2">
+        <span class="pill">active</span>
+        <span class="t-arrow">→</span>
+        <span class="pill">activ(e) + ly</span>
+        <span class="t-arrow">→</span>
+        <span class="font-bold text-white">actively</span>
+        <span class="text-slate-400 text-sm ml-2">능동적으로</span>
+      </div>
+      <div class="flex items-center flex-wrap gap-2">
+        <span class="pill">brave</span>
+        <span class="t-arrow">→</span>
+        <span class="pill">brave + ly</span>
+        <span class="t-arrow">→</span>
+        <span class="font-bold text-white">bravely</span>
+        <span class="text-slate-400 text-sm ml-2">용감하게</span>
+      </div>
+      <div class="flex items-center flex-wrap gap-2">
+        <span class="pill">vivid</span>
+        <span class="t-arrow">→</span>
+        <span class="pill">vivid + ly</span>
+        <span class="t-arrow">→</span>
+        <span class="font-bold text-white">vividly</span>
+        <span class="text-slate-400 text-sm ml-2">생생하게</span>
+      </div>
+      <div class="flex items-center flex-wrap gap-2">
+        <span class="pill">effective</span>
+        <span class="t-arrow">→</span>
+        <span class="pill">effectiv(e) + ly</span>
+        <span class="t-arrow">→</span>
+        <span class="font-bold text-white">effectively</span>
+        <span class="text-slate-400 text-sm ml-2">효과적으로</span>
+      </div>
+      <div class="flex items-center flex-wrap gap-2">
+        <span class="pill">live</span>
+        <span class="t-arrow">→</span>
+        <span class="pill">live + ly</span>
+        <span class="t-arrow">→</span>
+        <span class="font-bold text-white">lively</span>
+        <span class="text-slate-400 text-sm ml-2">활기차게</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     7. LINGUISTIC TRAITS
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8 text-center neon-cobalt font-['Space_Grotesk']">언어적 특성</h2>
+    <div class="glass p-6 space-y-5">
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span>부사 생성력</span><span class="neon-azure">99%</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" data-w="99" style="background:var(--azure);"></div></div>
+      </div>
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span>구어·문어 빈도</span><span class="neon-cobalt">97%</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" data-w="97" style="background:var(--cobalt);"></div></div>
+      </div>
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span>역사적 지속성</span><span class="neon-teal">98%</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" data-w="98" style="background:var(--teal);"></div></div>
+      </div>
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span>생동감·속도 뉘앙스</span><span class="neon-gold">96%</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" data-w="96" style="background:var(--gold);"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     8. SUFFIX ROLES
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8 text-center neon-gold font-['Space_Grotesk']">‑vly 역할 분류</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass p-4 text-center">
+        <p class="text-2xl mb-2">⚡</p>
+        <p class="font-bold neon-azure mb-1">능동 부사</p>
+        <p class="text-slate-400 text-xs">actively, decisively — ‑ive 형용사에서 파생된 행위 부사</p>
+      </div>
+      <div class="glass p-4 text-center">
+        <p class="text-2xl mb-2">🌊</p>
+        <p class="font-bold neon-cobalt mb-1">속도·흐름 부사</p>
+        <p class="text-slate-400 text-xs">swiftly, lively — 빠르거나 유연한 동작 양태 표현</p>
+      </div>
+      <div class="glass p-4 text-center">
+        <p class="text-2xl mb-2">💎</p>
+        <p class="font-bold neon-teal mb-1">강도·선명 부사</p>
+        <p class="text-slate-400 text-xs">vividly, positively — 행위나 상태의 강도와 명확성 강조</p>
+      </div>
+      <div class="glass p-4 text-center">
+        <p class="text-2xl mb-2">🎯</p>
+        <p class="font-bold neon-gold mb-1">목적·효과 부사</p>
+        <p class="text-slate-400 text-xs">effectively, creatively — 결과 지향적 방식 묘사</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     9. CODE BLOCK
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-center neon-azure font-['Space_Grotesk']">Suffix Object</h2>
+    <div class="code-block">
+<span style="color:#f59e0b;">const</span> <span style="color:#a78bfa;">suffix</span> = {<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">name</span>:         <span style="color:#fca5a5;">"‑vly"</span>,<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">origin</span>:       <span style="color:#fca5a5;">"Latin ‑ivus + Germanic ‑līce → Old English ‑lice → ‑ly"</span>,<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">formation</span>:    <span style="color:#fca5a5;">"‑ve adjective + ‑ly → ‑vly adverb"</span>,<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">relatedForms</span>: [<span style="color:#fca5a5;">"‑ively"</span>, <span style="color:#fca5a5;">"‑avely"</span>, <span style="color:#fca5a5;">"‑ovely"</span>, <span style="color:#fca5a5;">"‑uvely"</span>],<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">meanings</span>:     [<span style="color:#fca5a5;">"능동"</span>, <span style="color:#fca5a5;">"속도"</span>, <span style="color:#fca5a5;">"강도"</span>, <span style="color:#fca5a5;">"생동감"</span>],<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">wordClass</span>:    [<span style="color:#fca5a5;">"adverb"</span>],<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">examples</span>:     [<span style="color:#fca5a5;">"actively"</span>, <span style="color:#fca5a5;">"bravely"</span>, <span style="color:#fca5a5;">"vividly"</span>, <span style="color:#fca5a5;">"lively"</span>],<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">derivatives</span>:  <span style="color:#f9a8d4;">2800</span>,<br/>
+&nbsp;&nbsp;<span style="color:#86efac;">domain</span>:       <span style="color:#fca5a5;">"https://vly.kr"</span><br/>
+};<br/>
+<span style="color:#94a3b8;">// Vivid · Vital · Velocity — ‑vly 가 담긴 세 가지 핵심 에너지</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     10. ETYMOLOGY TIMELINE
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8 text-center neon-cobalt font-['Space_Grotesk']">어원 타임라인</h2>
+    <div class="space-y-6 pl-2">
+      <div class="flex gap-4">
+        <div class="tl-dot"></div>
+        <div>
+          <p class="font-bold text-white">Classical Latin (~200 BC)</p>
+          <p class="text-slate-400 text-sm">‑ivus (형용사 접미사) + ‑ē (부사화) — activē, vivē 등 라틴어 부사 형성의 원형</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="tl-dot" style="background:var(--cobalt);box-shadow:0 0 8px var(--cobalt);"></div>
+        <div>
+          <p class="font-bold text-white">Proto-Germanic / Old English (~700 AD)</p>
+          <p class="text-slate-400 text-sm">게르만어 ‑līce 접미사와 라틴어 차용 합류 — brāvlīce, līflīce 등 ‑ly 부사 기반 형성</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="tl-dot" style="background:var(--teal);box-shadow:0 0 8px var(--teal);"></div>
+        <div>
+          <p class="font-bold text-white">Middle English (~1200 AD)</p>
+          <p class="text-slate-400 text-sm">‑ive + ‑ly 결합 패턴 정착 — actif+ly, natif+ly 등 앵글로-프랑스어를 통한 대규모 유입</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="tl-dot" style="background:var(--gold);box-shadow:0 0 8px var(--gold);"></div>
+        <div>
+          <p class="font-bold text-white">Early Modern English (~1500 AD)</p>
+          <p class="text-slate-400 text-sm">actively, effectively, positively — 철자 표준화 완성 및 추상 부사 어휘 폭발적 확장</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="tl-dot" style="background:var(--mint);box-shadow:0 0 8px var(--mint);"></div>
+        <div>
+          <p class="font-bold text-white">Modern English (18c ~ 현재)</p>
+          <p class="text-slate-400 text-sm">creatively, decisively, progressively 등 추상·전문 부사군 지속 생산 — ‑vly 패턴 최고 생산성 유지</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     11. QUOTES
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="glass p-6">
+      <p class="text-slate-300 italic text-sm mb-4">"Act bravely, live vividly — ‑vly 부사는 삶을 움직이는 동력이다."</p>
+      <p class="neon-azure text-xs font-bold">— vly.kr 어원 노트</p>
+    </div>
+    <div class="glass p-6">
+      <p class="text-slate-300 italic text-sm mb-4">"The adverb is the enemy of the verb — but ‑vly adverbs are the ones that electrify it."</p>
+      <p class="neon-cobalt text-xs font-bold">— 언어학 격언</p>
+    </div>
+    <div class="glass p-6">
+      <p class="text-slate-300 italic text-sm mb-4">"Speak positively, act decisively, live actively — ‑vly 는 태도의 언어다."</p>
+      <p class="neon-gold text-xs font-bold">— 어원 탐구가</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     12. FEATURED VIDEO
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-center neon-azure font-['Space_Grotesk']">Featured Video</h2>
+    <div class="glass p-3 rounded-2xl" style="aspect-ratio:16/9;">
+      <iframe class="w-full h-full rounded-xl"
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        title="‑vly 접미사 해설"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     13. PLAYLIST
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-center neon-cobalt font-['Space_Grotesk']">Playlist</h2>
+    <div class="space-y-3">
+      <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank"
+         class="glass flex gap-4 p-3 rounded-xl hover:border-sky-400 transition-colors">
+        <img src="https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=80&h=60&fit=crop"
+             class="rounded-lg w-20 h-14 object-cover" alt="ep1" />
+        <div>
+          <p class="font-semibold text-white text-sm">EP 01 · Actively &amp; Bravely</p>
+          <p class="text-slate-400 text-xs mt-1">능동과 용기 — ‑ive+ly 부사의 탄생</p>
+        </div>
+      </a>
+      <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank"
+         class="glass flex gap-4 p-3 rounded-xl hover:border-teal-400 transition-colors">
+        <img src="https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?w=80&h=60&fit=crop"
+             class="rounded-lg w-20 h-14 object-cover" alt="ep2" />
+        <div>
+          <p class="font-semibold text-white text-sm">EP 02 · Vividly &amp; Lively</p>
+          <p class="text-slate-400 text-xs mt-1">생생함과 활기 — v+ly 어휘의 생동감</p>
+        </div>
+      </a>
+      <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank"
+         class="glass flex gap-4 p-3 rounded-xl hover:border-blue-400 transition-colors">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=80&h=60&fit=crop"
+             class="rounded-lg w-20 h-14 object-cover" alt="ep3" />
+        <div>
+          <p class="font-semibold text-white text-sm">EP 03 · Effectively &amp; Decisively</p>
+          <p class="text-slate-400 text-xs mt-1">효과와 결단 — 전문 부사로의 진화</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     14. IMAGE CAROUSEL
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-center neon-gold font-['Space_Grotesk']">‑vly 갤러리</h2>
+    <div class="glass p-3 rounded-2xl">
+      <div class="relative overflow-hidden rounded-xl" style="height:280px;">
+        <div id="carouselTrack" class="carousel-track">
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1504971116797-24a8e5b3e7b1?w=800&h=280&fit=crop" alt="actively" />
+            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80">
+              <p class="text-white text-sm font-semibold">Actively — 능동의 에너지</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&h=280&fit=crop" alt="vividly" />
+            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80">
+              <p class="text-white text-sm font-semibold">Vividly — 생생한 자연의 색</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?w=800&h=280&fit=crop" alt="swiftly" />
+            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80">
+              <p class="text-white text-sm font-semibold">Swiftly — 빠른 흐름</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=800&h=280&fit=crop" alt="lively" />
+            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80">
+              <p class="text-white text-sm font-semibold">Lively — 활기찬 순간</p>
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=280&fit=crop" alt="bravely" />
+            <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80">
+              <p class="text-white text-sm font-semibold">Bravely — 용감한 도전</p>
+            </div>
+          </div>
+        </div>
+        <button onclick="moveCarousel(-1)"
+          class="absolute left-2 top-1/2 -translate-y-1/2 glass w-8 h-8 rounded-full flex items-center justify-center text-sm hover:scale-110 transition">‹</button>
+        <button onclick="moveCarousel(1)"
+          class="absolute right-2 top-1/2 -translate-y-1/2 glass w-8 h-8 rounded-full flex items-center justify-center text-sm hover:scale-110 transition">›</button>
+      </div>
+      <div id="carouselDots" class="flex justify-center gap-2 mt-3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     15. SPOTLIGHT
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <div class="relative rounded-2xl overflow-hidden glass" style="min-height:200px;">
+      <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&h=200&fit=crop"
+           class="w-full object-cover opacity-30" style="height:200px;" alt="spotlight" />
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+        <h2 class="font-['Space_Grotesk'] text-3xl neon-azure mb-2 font-bold">Vivid · Vital · Velocity</h2>
+        <p class="text-slate-300 text-sm">‑vly 가 담긴 모든 부사에는 생동감과 속도, 그리고 의지가 흐른다</p>
+        <a href="https://vly.kr" target="_blank"
+           class="mt-4 px-6 py-2 rounded-full text-sm font-bold text-white"
+           style="background:linear-gradient(135deg,var(--azure),var(--teal));">
+          더 알아보기 →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     16. MUSIC PLAYER
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-center neon-cobalt font-['Space_Grotesk']">‑vly Sound Track</h2>
+    <div class="glass p-6">
+      <div class="flex items-center gap-5 mb-5">
+        <div id="vinyl" class="vinyl"></div>
+        <div class="flex-1 min-w-0">
+          <p id="trackTitle"  class="font-bold text-white truncate">Actively Yours</p>
+          <p id="trackArtist" class="text-slate-400 text-sm">vly.kr OST</p>
+          <div class="meter-bar mt-3">
+            <div id="musicProgress" class="meter-fill"
+                 style="background:linear-gradient(90deg,var(--azure),var(--teal));width:0%;"></div>
+          </div>
+          <div class="flex justify-between text-xs text-slate-500 mt-1">
+            <span id="currentTime">0:00</span><span id="totalTime">0:00</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center gap-4 mb-5">
+        <button onclick="prevTrack()"
+          class="glass w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition">⏮</button>
+        <button id="playBtn" onclick="togglePlay()"
+          class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white hover:scale-110 transition"
+          style="background:linear-gradient(135deg,var(--azure),var(--teal));">▶</button>
+        <button onclick="nextTrack()"
+          class="glass w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition">⏭</button>
+      </div>
+      <div class="space-y-2" id="trackList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     17. PROJECTS
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8 text-center neon-gold font-['Space_Grotesk']">‑vly 프로젝트</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass p-4">
+        <p class="text-xl mb-2">📚</p>
+        <p class="font-bold text-white text-sm mb-1">‑vly Dictionary</p>
+        <p class="text-slate-400 text-xs mb-3">2,800+ ‑vly 부사 완전 수록</p>
+        <span class="pill text-xs" style="color:var(--azure);border-color:var(--azure);">Live</span>
+      </div>
+      <div class="glass p-4">
+        <p class="text-xl mb-2">🔬</p>
+        <p class="font-bold text-white text-sm mb-1">Velocity Lab</p>
+        <p class="text-slate-400 text-xs mb-3">부사 생성 패턴 시각화 도구</p>
+        <span class="pill text-xs" style="color:var(--gold);border-color:var(--gold);">Beta</span>
+      </div>
+      <div class="glass p-4">
+        <p class="text-xl mb-2">🎯</p>
+        <p class="font-bold text-white text-sm mb-1">‑vly Quest</p>
+        <p class="text-slate-400 text-xs mb-3">어휘 확장 게임형 학습</p>
+        <span class="pill text-xs" style="color:var(--cobalt);border-color:var(--cobalt);">Dev</span>
+      </div>
+      <div class="glass p-4">
+        <p class="text-xl mb-2">🤖</p>
+        <p class="font-bold text-white text-sm mb-1">‑vly AI Tutor</p>
+        <p class="text-slate-400 text-xs mb-3">AI 기반 어원 학습 튜터</p>
+        <span class="pill text-xs" style="color:var(--teal);border-color:var(--teal);">Soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     18. RECENT POSTS
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-center neon-azure font-['Space_Grotesk']">최근 포스트</h2>
+    <div class="space-y-3">
+      <div class="glass p-4 flex gap-4 items-start">
+        <span class="neon-azure text-lg">⚡</span>
+        <div>
+          <p class="font-semibold text-white text-sm">actively vs. vigorously — ‑vly 부사의 강도 차이</p>
+          <p class="text-slate-500 text-xs mt-1">2025 · 12 · 22</p>
+        </div>
+      </div>
+      <div class="glass p-4 flex gap-4 items-start">
+        <span class="neon-cobalt text-lg">🌊</span>
+        <div>
+          <p class="font-semibold text-white text-sm">vividly 어원 — 라틴어 vivus(살아있는)에서 온 생생함</p>
+          <p class="text-slate-500 text-xs mt-1">2025 · 12 · 10</p>
+        </div>
+      </div>
+      <div class="glass p-4 flex gap-4 items-start">
+        <span class="neon-gold text-lg">💫</span>
+        <div>
+          <p class="font-semibold text-white text-sm">‑ively 부사군 총정리 — effectively, decisively, progressively</p>
+          <p class="text-slate-500 text-xs mt-1">2025 · 11 · 28</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     19. FAQ
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-center neon-cobalt font-['Space_Grotesk']">자주 묻는 질문</h2>
+    <div class="space-y-3">
+      <div class="glass p-4 faq-item">
+        <div class="flex justify-between items-center cursor-pointer faq-toggle">
+          <p class="font-semibold text-sm">‑vly 는 독립적인 접미사인가요, 아니면 ‑v+ly 의 결합인가요?</p>
+          <span class="faq-icon neon-azure text-lg">+</span>
+        </div>
+        <div class="faq-answer mt-3 text-slate-400 text-sm">
+          ‑vly 는 형용사 어미 ‑ve(active, brave, live)에 부사화 접미사 ‑ly 가 결합한 패턴입니다. 어원학적으로는 ‑ve+ly 의 음운 수렴이지만, 실용적으로는 ‑vly 형태가 하나의 독립적인 부사 생성 패턴으로 인식됩니다. 특히 v 로 끝나는 형용사에서 일관되게 나타나는 특징 덕분에 ‑vly 자체를 하나의 접미 패턴으로 다룹니다.
+        </div>
+      </div>
+      <div class="glass p-4 faq-item">
+        <div class="flex justify-between items-center cursor-pointer faq-toggle">
+          <p class="font-semibold text-sm">‑vly 부사를 효율적으로 학습하는 방법은?</p>
+          <span class="faq-icon neon-cobalt text-lg">+</span>
+        </div>
+        <div class="faq-answer mt-3 text-slate-400 text-sm">
+          어근별 의미군으로 묶어 학습하세요. '능동·행위' 그룹(actively, decisively), '감각·강도' 그룹(vividly, positively), '속도·흐름' 그룹(swiftly, lively)으로 나누면 2,800개가 넘는 ‑vly 어휘를 패턴으로 빠르게 습득할 수 있습니다.
+        </div>
+      </div>
+      <div class="glass p-4 faq-item">
+        <div class="flex justify-between items-center cursor-pointer faq-toggle">
+          <p class="font-semibold text-sm">vly.kr 에서 제공하는 콘텐츠는 무엇인가요?</p>
+          <span class="faq-icon neon-gold text-lg">+</span>
+        </div>
+        <div class="faq-answer mt-3 text-slate-400 text-sm">
+          ‑vly 계열 2,800개 부사의 어원, 발음, 예문, 파생어를 수록한 사전과 함께 부사 생성 패턴 시각화 도구인 Velocity Lab, 게임형 어휘 학습 ‑vly Quest, AI 기반 어원 튜터를 제공합니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     20. NEWSLETTER + CONTACT
+══════════════════════════════════════════ -->
+<section class="py-12 px-4 reveal">
+  <div class="max-w-3xl mx-auto space-y-8">
+    <div class="glass p-6">
+      <h2 class="text-xl font-bold mb-1 neon-azure font-['Space_Grotesk']">뉴스레터 구독</h2>
+      <p class="text-slate-400 text-sm mb-4">‑vly 어휘 업데이트를 매주 받아보세요</p>
+      <div class="flex gap-2">
+        <input id="nlEmail" type="email" placeholder="your@email.com"
+          class="flex-1 bg-black/30 border border-white/10 rounded-full px-4 py-2 text-sm outline-none focus:border-sky-400 transition" />
+        <button onclick="subscribeNL()"
+          class="px-5 py-2 rounded-full text-sm font-bold text-white"
+          style="background:linear-gradient(135deg,var(--azure),var(--teal));">구독</button>
+      </div>
+      <p id="nlMsg" class="text-xs mt-2 hidden"></p>
+    </div>
+    <div class="glass p-6">
+      <h2 class="text-xl font-bold mb-4 neon-cobalt font-['Space_Grotesk']">문의하기</h2>
+      <div class="space-y-3">
+        <input id="ctName" type="text" placeholder="이름"
+          class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-2 text-sm outline-none focus:border-sky-400 transition" />
+        <input id="ctEmail" type="email" placeholder="이메일"
+          class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-2 text-sm outline-none focus:border-sky-400 transition" />
+        <select id="ctTopic"
+          class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2 text-sm outline-none focus:border-sky-400 transition">
+          <option value="">주제 선택</option>
+          <option>어원 문의</option>
+          <option>파트너십</option>
+          <option>콘텐츠 제안</option>
+          <option>기타</option>
+        </select>
+        <textarea id="ctMsg" rows="3" placeholder="메시지"
+          class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-2 text-sm outline-none focus:border-sky-400 transition resize-none"></textarea>
+        <button onclick="sendContact()"
+          class="w-full py-2 rounded-xl text-sm font-bold text-white"
+          style="background:linear-gradient(135deg,var(--cobalt),var(--teal));">보내기</button>
+        <p id="ctMsg2" class="text-xs hidden"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer class="py-12 px-4 text-center relative z-10">
+  <div class="max-w-2xl mx-auto">
+    <div class="flex flex-wrap justify-center gap-2 mb-6">
+      <span class="pill" style="color:var(--azure);  border-color:var(--azure);">#actively</span>
+      <span class="pill" style="color:var(--cobalt); border-color:var(--cobalt);">#bravely</span>
+      <span class="pill" style="color:var(--teal);   border-color:var(--teal);">#vividly</span>
+      <span class="pill" style="color:var(--mint);   border-color:var(--mint);">#lively</span>
+      <span class="pill" style="color:var(--sky);    border-color:var(--sky);">#swiftly</span>
+      <span class="pill" style="color:var(--gold);   border-color:var(--gold);">#영어접미사</span>
+    </div>
+    <p class="font-['Space_Grotesk'] text-3xl font-bold neon-azure mb-1">‑vly</p>
+    <p class="text-slate-500 text-sm mb-1">Vivid · Vital · Velocity</p>
+    <a href="https://vly.kr" target="_blank" class="text-slate-400 text-sm hover:text-white transition">vly.kr</a>
+    <p class="text-slate-600 text-xs mt-4">© 2025 vly.kr — 영어 접미사 ‑vly 탐구 플랫폼</p>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+/* ── 1. PARTICLES ── */
+(function(){
+  const c   = document.getElementById('particles-canvas');
+  const ctx = c.getContext('2d');
+  let W, H, pts = [];
+  const COLORS = ['#0ea5e9','#3b82f6','#14b8a6','#34d399','#7dd3fc','#f59e0b'];
+  function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; }
+  function init(){
+    pts = [];
+    for(let i=0;i<72;i++) pts.push({
+      x:   Math.random()*W,
+      y:   Math.random()*H,
+      vx:  (Math.random()-.5)*.45,
+      vy:  (Math.random()-.5)*.45,
+      r:   Math.random()*2+1,
+      col: COLORS[Math.floor(Math.random()*COLORS.length)]
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{ resize(); init(); });
+  resize(); init(); draw();
+})();
+
+/* ── 2. HERO METER ── */
+window.addEventListener('load', function(){
+  const TARGET = 19;
+  const fill   = document.getElementById('heroMeterFill');
+  const val    = document.getElementById('heroMeterVal');
+  let cur = 0;
+  const iv = setInterval(()=>{
+    cur++;
+    fill.style.width = (cur/20*100)+'%';
+    val.textContent  = cur;
+    if(cur >= TARGET) clearInterval(iv);
+  }, 75);
+});
+
+/* ── 3. COUNT-UP ── */
+function countUp(id, target, suffix, duration){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const step = target / (duration / 30);
+  let cur = 0;
+  const iv = setInterval(()=>{
+    cur = Math.min(cur + step, target);
+    el.textContent = Math.floor(cur).toLocaleString() + (suffix||'');
+    if(cur >= target) clearInterval(iv);
+  }, 30);
+}
+
+/* ── 4. SCROLL REVEAL + PROGRESS BARS + KPI ── */
+const revealObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('revealed');
+      e.target.querySelectorAll('.prog-fill[data-w]').forEach(bar=>{
+        bar.style.width = bar.dataset.w + '%';
+      });
+      revealObs.unobserve(e.target);
+    }
+  });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=> revealObs.observe(el));
+
+const kpiObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      countUp('kpi1', 2800, '', 2200);
+      countUp('kpi2', 2000, '', 2200);
+      kpiObs.disconnect();
+    }
+  });
+},{threshold:0.3});
+const kpiEl = document.getElementById('kpi');
+if(kpiEl) kpiObs.observe(kpiEl);
+
+/* ── 5. ACCORDION ── */
+document.querySelectorAll('.faq-toggle').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const answer = btn.nextElementSibling;
+    const icon   = btn.querySelector('.faq-icon');
+    const isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-answer').forEach(a=> a.classList.remove('open'));
+    document.querySelectorAll('.faq-icon').forEach(i=> i.textContent='+');
+    if(!isOpen){ answer.classList.add('open'); icon.textContent='−'; }
+  });
+});
+
+/* ── 6. CAROUSEL ── */
+let carouselIdx = 0;
+const TOTAL_SLIDES = 5;
+(function initCarousel(){
+  const dots = document.getElementById('carouselDots');
+  for(let i=0;i<TOTAL_SLIDES;i++){
+    const d = document.createElement('div');
+    d.className = 'w-2 h-2 rounded-full transition-colors cursor-pointer';
+    d.style.background = i===0 ? 'var(--azure)' : 'rgba(255,255,255,0.25)';
+    d.onclick = ()=>{ carouselIdx=i; updateCarousel(); };
+    dots.appendChild(d);
+  }
+})();
+function updateCarousel(){
+  document.getElementById('carouselTrack').style.transform = `translateX(-${carouselIdx*100}%)`;
+  document.querySelectorAll('#carouselDots div').forEach((d,i)=>{
+    d.style.background = i===carouselIdx ? 'var(--azure)' : 'rgba(255,255,255,0.25)';
+  });
+}
+function moveCarousel(dir){
+  carouselIdx = (carouselIdx + dir + TOTAL_SLIDES) % TOTAL_SLIDES;
+  updateCarousel();
+}
+setInterval(()=>{ carouselIdx=(carouselIdx+1)%TOTAL_SLIDES; updateCarousel(); }, 4000);
+
+/* ── 7. MUSIC PLAYER ── */
+const tracks = [
+  { title:'Actively Yours',   artist:'vly.kr OST', dur:247 },
+  { title:'Vividly Alive',    artist:'vly.kr OST', dur:263 },
+  { title:'Bravely Forward',  artist:'vly.kr OST', dur:234 }
+];
+let curTrack=0, isPlaying=false, elapsed=0, playerIv=null;
+function fmt(s){ return Math.floor(s/60)+':'+(s%60<10?'0':'')+Math.floor(s%60); }
+function renderTracks(){
+  const list = document.getElementById('trackList');
+  list.innerHTML = '';
+  tracks.forEach((t,i)=>{
+    const d = document.createElement('div');
+    d.className = 'flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-white/5 transition';
+    d.innerHTML = `<span class="text-slate-500 text-xs w-4">${i+1}</span>
+      <div class="flex-1"><p class="text-sm font-medium ${i===curTrack?'text-white':'text-slate-400'}">${t.title}</p></div>
+      <span class="text-xs text-slate-500">${fmt(t.dur)}</span>`;
+    if(i===curTrack) d.style.background='rgba(14,165,233,0.12)';
+    d.onclick=()=>{ curTrack=i; elapsed=0; loadTrack(); if(!isPlaying) togglePlay(); };
+    list.appendChild(d);
+  });
+}
+function loadTrack(){
+  const t = tracks[curTrack];
+  document.getElementById('trackTitle').textContent  = t.title;
+  document.getElementById('trackArtist').textContent = t.artist;
+  document.getElementById('totalTime').textContent   = fmt(t.dur);
+  document.getElementById('currentTime').textContent = '0:00';
+  document.getElementById('musicProgress').style.width = '0%';
+  renderTracks();
+}
+function togglePlay(){
+  isPlaying = !isPlaying;
+  document.getElementById('playBtn').textContent = isPlaying ? '⏸' : '▶';
+  const vinyl = document.getElementById('vinyl');
+  if(isPlaying){
+    vinyl.classList.add('spinning');
+    playerIv = setInterval(()=>{
+      elapsed++;
+      const dur = tracks[curTrack].dur;
+      document.getElementById('currentTime').textContent = fmt(elapsed);
+      document.getElementById('musicProgress').style.width = (elapsed/dur*100)+'%';
+      if(elapsed >= dur){ elapsed=0; nextTrack(); }
+    },1000);
+  } else {
+    vinyl.classList.remove('spinning');
+    clearInterval(playerIv);
+  }
+}
+function nextTrack(){ clearInterval(playerIv); isPlaying=false; elapsed=0; curTrack=(curTrack+1)%tracks.length; loadTrack(); togglePlay(); }
+function prevTrack(){ clearInterval(playerIv); isPlaying=false; elapsed=0; curTrack=(curTrack-1+tracks.length)%tracks.length; loadTrack(); togglePlay(); }
+loadTrack();
+
+/* ── 8. NEWSLETTER ── */
+function subscribeNL(){
+  const v = document.getElementById('nlEmail').value.trim();
+  const m = document.getElementById('nlMsg');
+  m.classList.remove('hidden');
+  if(!v||!v.includes('@')){
+    m.textContent='올바른 이메일을 입력해주세요.'; m.style.color='#f87171';
+  } else {
+    m.textContent='구독해주셔서 감사합니다! ⚡'; m.style.color='#4ade80';
+    document.getElementById('nlEmail').value='';
+  }
+}
+
+/* ── 9. CONTACT ── */
+function sendContact(){
+  const name  = document.getElementById('ctName').value.trim();
+  const email = document.getElementById('ctEmail').value.trim();
+  const msg   = document.getElementById('ctMsg').value.trim();
+  const out   = document.getElementById('ctMsg2');
+  out.classList.remove('hidden');
+  if(!name||!email||!msg){
+    out.textContent='모든 필드를 입력해주세요.'; out.style.color='#f87171';
+  } else if(!email.includes('@')){
+    out.textContent='올바른 이메일을 입력해주세요.'; out.style.color='#f87171';
+  } else {
+    out.textContent='메시지가 전송되었습니다! ✅'; out.style.color='#4ade80';
+    ['ctName','ctEmail','ctMsg'].forEach(id=> document.getElementById(id).value='');
+    document.getElementById('ctTopic').selectedIndex=0;
+  }
+}
+
+/* ── 10. SCROLL TO TOP ── */
+const topBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll',()=>{
+  topBtn.style.display = scrollY > 400 ? 'flex' : 'none';
+});
+</script>
+</body>
+</html>
