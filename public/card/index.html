@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="vly.kr – the adverb suffix · actively & expressively"/>
+<title>vly.kr</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif}
+body{
+  display:flex;align-items:center;justify-content:center;
+  background:#080b0d;
+  position:relative;
+}
+
+/* ── background orbs ── */
+.bg-orb{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0}
+.bg-orb-1{width:680px;height:480px;top:-12%;left:-10%;
+  background:radial-gradient(ellipse,rgba(30,160,200,0.17) 0%,transparent 70%)}
+.bg-orb-2{width:540px;height:540px;top:30%;right:-14%;
+  background:radial-gradient(ellipse,rgba(20,130,175,0.14) 0%,transparent 70%)}
+.bg-orb-3{width:420px;height:310px;bottom:-8%;left:18%;
+  background:radial-gradient(ellipse,rgba(50,185,220,0.12) 0%,transparent 70%)}
+.bg-orb-4{width:330px;height:250px;top:8%;right:28%;
+  background:radial-gradient(ellipse,rgba(40,150,195,0.09) 0%,transparent 70%)}
+.bg-orb-5{width:270px;height:200px;bottom:14%;right:8%;
+  background:radial-gradient(ellipse,rgba(70,200,230,0.08) 0%,transparent 70%)}
+.bg-orb-6{width:210px;height:170px;top:45%;left:6%;
+  background:radial-gradient(ellipse,rgba(20,120,165,0.06) 0%,transparent 70%)}
+
+/* ── expression field ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle,rgba(40,175,215,0.036) 1px,transparent 1px),
+    radial-gradient(circle,rgba(25,145,190,0.024) 1px,transparent 1px),
+    radial-gradient(circle,rgba(65,200,228,0.018) 1px,transparent 1px);
+  background-size:40px 40px,66px 66px,95px 95px;
+  background-position:0 0,20px 20px,10px 10px;
+}
+
+/* ── scene & card wrap ── */
+.scene{position:relative;z-index:10;perspective:900px}
+.card-wrap{
+  width:380px;height:240px;border-radius:18px;
+  transform-style:preserve-3d;position:relative;cursor:pointer;
+  animation:card-enter 1.15s cubic-bezier(.22,.68,0,1.18) both,
+             float-idle 9.5s ease-in-out 1.2s infinite;
+}
+@keyframes card-enter{
+  from{opacity:0;transform:translateX(-15px) rotateY(-24deg) rotateX(6deg) scale(.92)}
+  to  {opacity:1;transform:translateX(0)     rotateY(0deg)   rotateX(0deg) scale(1)}
+}
+@keyframes float-idle{
+  0%,100%{transform:translateY(0px)  rotateX(0deg)}
+  33%    {transform:translateY(-5px) rotateX(.7deg)}
+  66%    {transform:translateY(3px)  rotateX(-.45deg)}
+}
+
+/* ── holographic overlay ── */
+.card-holo{
+  position:absolute;inset:0;border-radius:18px;z-index:4;pointer-events:none;
+  opacity:0;transition:opacity .36s;
+  background:conic-gradient(from var(--r,0deg) at var(--mx,50%) var(--my,50%),
+    rgba(30,160,200,0)    0%,
+    rgba(50,195,230,.17) 15%,
+    rgba(140,225,248,.13) 30%,
+    rgba(25,148,192,.09) 50%,
+    rgba(30,160,200,0)  70%);
+  mix-blend-mode:screen;
+}
+.card-wrap:hover .card-holo{opacity:1}
+
+/* ── spotlight ── */
+.card-spot{
+  position:absolute;inset:0;border-radius:18px;z-index:3;pointer-events:none;
+  opacity:0;transition:opacity .3s;
+  background:radial-gradient(circle 130px at var(--mx,50%) var(--my,50%),
+    rgba(80,205,240,.12) 0%,transparent 80%);
+}
+.card-wrap:hover .card-spot{opacity:1}
+
+/* ── shimmer ── */
+.card-shimmer{
+  position:absolute;inset:0;border-radius:18px;z-index:2;pointer-events:none;overflow:hidden;
+}
+.card-shimmer::after{
+  content:'';position:absolute;
+  top:-60%;left:-75%;width:55%;height:220%;
+  background:linear-gradient(105deg,transparent 30%,rgba(110,215,245,.09) 50%,transparent 70%);
+  animation:vly-sweep 7.8s ease-in-out infinite;
+}
+@keyframes vly-sweep{
+  0%  {transform:translateX(0)     rotate(8deg)}
+  100%{transform:translateX(900px) rotate(8deg)}
+}
+
+/* ── texture ── */
+.card-texture{
+  position:absolute;inset:0;border-radius:18px;z-index:1;pointer-events:none;opacity:.036;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='1' cy='1' r='.7' fill='%2328a8d0'/%3E%3C/svg%3E");
+  background-size:6px 6px;
+}
+
+/* ── edge ── */
+.card-edge{
+  position:absolute;inset:0;border-radius:18px;z-index:5;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(40,175,215,.14),
+             inset 0 1px 0   rgba(130,225,248,.11);
+}
+
+/* ── main card ── */
+.card{
+  width:100%;height:100%;border-radius:18px;
+  position:relative;overflow:hidden;z-index:6;
+  background:linear-gradient(132deg,
+    rgba(4,16,24,0.97)  0%,
+    rgba(3,11,18,0.98)  55%,
+    rgba(2,7,12,1)      100%);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(35,168,208,.14);
+  box-shadow:0 8px 44px rgba(0,0,0,.66),
+             0 2px 12px rgba(25,155,198,.10);
+}
+
+/* ── SVG art ── */
+.card-inner-art{position:absolute;inset:0;z-index:0;pointer-events:none}
+
+/* ── particle container ── */
+#flowContainer{position:absolute;inset:0;z-index:7;pointer-events:none;
+               overflow:hidden;border-radius:18px}
+
+/* ── letter tag ── */
+.letter-tag{
+  position:absolute;top:14px;left:16px;z-index:9;
+  font-size:11px;font-weight:700;letter-spacing:.16em;
+  color:rgba(120,210,240,.84);
+  border:1px solid rgba(45,182,218,.25);
+  padding:3px 9px 3px 8px;border-radius:20px;
+  background:rgba(3,14,22,.54);backdrop-filter:blur(6px);
+  display:flex;align-items:center;gap:7px;
+}
+.vly-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(45,195,228,.88);
+  box-shadow:0 0 6px rgba(45,195,228,.65);
+  animation:vly-pulse 2.4s ease-in-out infinite;
+}
+@keyframes vly-pulse{
+  0%,100%{transform:scale(1);   opacity:.88}
+  50%    {transform:scale(1.38);opacity:1}
+}
+
+/* ── meanings overlay ── */
+.card-meanings{
+  position:absolute;inset:0;z-index:8;border-radius:18px;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;
+  padding:24px;
+  background:rgba(2,10,18,.83);backdrop-filter:blur(8px);
+  opacity:0;transition:opacity .42s;pointer-events:none;
+}
+.card-wrap:hover .card-meanings{opacity:1}
+.mean-item{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  color:rgba(140,222,245,.88);font-size:10px;font-weight:600;letter-spacing:.1em;
+  background:rgba(6,28,44,.50);border:1px solid rgba(40,178,215,.22);
+  border-radius:10px;padding:8px 13px;min-width:72px;
+}
+.mean-item span:first-child{font-size:18px}
+
+/* ── card content ── */
+.card-content{
+  position:absolute;bottom:0;right:0;
+  padding:12px 16px;z-index:9;text-align:right;
+}
+.name-main{
+  font-size:22px;font-weight:800;letter-spacing:.01em;
+  color:rgba(175,232,250,.94);
+  text-shadow:0 0 18px rgba(30,165,205,.42);
+}
+.name-dot{color:rgba(42,192,225,.88)}
+.name-sub{
+  font-size:8.5px;font-weight:500;letter-spacing:.16em;
+  color:rgba(100,198,230,.62);margin-top:2px;text-transform:uppercase;
+}
+.meta-row{
+  font-size:7.5px;font-weight:600;letter-spacing:.18em;
+  color:rgba(80,172,208,.46);margin-top:5px;text-transform:uppercase;
+}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:7px;
+  background:rgba(4,18,28,.58);
+  border:1px solid rgba(38,185,218,.23);
+  border-radius:20px;padding:3px 10px;
+  font-size:9px;font-weight:700;letter-spacing:.14em;
+  color:rgba(130,218,242,.88);
+}
+.domain-url{
+  font-size:9px;font-weight:600;letter-spacing:.12em;
+  color:rgba(75,165,202,.42);margin-top:4px;
+}
+.domain-tld{color:rgba(42,188,222,.64)}
+
+/* ── flow particle ── */
+.flow{
+  position:absolute;
+  border-radius:50%;
+  animation:flow-rise linear infinite;
+  opacity:0;
+}
+@keyframes flow-rise{
+  0%  {transform:translateY(0)      translateX(0)               scale(1);   opacity:0}
+  9%  {opacity:.72}
+  88% {opacity:.38}
+  100%{transform:translateY(-198px) translateX(var(--dx,9px))   scale(.28); opacity:0}
+}
+
+/* ── SVG keyframes ── */
+@keyframes arrow-fly     {0%,100%{transform:translateX(0)}
+                           50%{transform:translateX(5px)}}
+@keyframes vane-spin     {from{transform:rotate(0deg)} to{transform:rotate(360deg)}}
+@keyframes beam-draw     {from{stroke-dashoffset:220} to{stroke-dashoffset:0}}
+@keyframes ripple-soft   {0%{r:4;opacity:.68} 100%{r:26;opacity:0}}
+@keyframes glow-soft     {0%,100%{opacity:.42} 50%{opacity:.80}}
+@keyframes bar-fill      {from{width:0} to{width:var(--bw,60px)}}
+@keyframes word-fade     {0%,100%{opacity:.50} 50%{opacity:.92}}
+@keyframes float-word    {0%,100%{transform:translateY(0)} 50%{transform:translateY(-2.5px)}}
+@keyframes twinkle       {0%,100%{opacity:.28;transform:scale(.8)}
+                           50%{opacity:.85;transform:scale(1.18)}}
+@keyframes streak-slide  {0%{transform:translateX(0);opacity:.7}
+                           100%{transform:translateX(32px);opacity:0}}
+@keyframes pulse-node    {0%,100%{r:3.5;opacity:.65} 50%{r:5.2;opacity:1}}
+@keyframes path-trace    {from{stroke-dashoffset:160} to{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+
+<!-- background orbs -->
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+<div class="bg-orb bg-orb-4"></div>
+<div class="bg-orb bg-orb-5"></div>
+<div class="bg-orb bg-orb-6"></div>
+
+<div class="scene">
+  <div class="card-wrap is-idle" id="cardWrap">
+    <div class="card-holo"    id="cardHolo"></div>
+    <div class="card-spot"    id="cardSpot"></div>
+    <div class="card-shimmer"></div>
+    <div class="card-texture"></div>
+    <div class="card-edge"></div>
+
+    <div class="card" id="cardFace">
+
+      <!-- SVG art layer -->
+      <div class="card-inner-art">
+        <svg width="380" height="240" viewBox="0 0 380 240"
+             xmlns="http://www.w3.org/2000/svg" overflow="visible">
+          <defs>
+            <radialGradient id="vlyGrad" cx="33%" cy="50%" r="60%">
+              <stop offset="0%"   stop-color="rgba(30,165,205,0.20)"/>
+              <stop offset="100%" stop-color="rgba(3,12,20,0)"/>
+            </radialGradient>
+            <clipPath id="vlyClip">
+              <rect width="380" height="240" rx="18"/>
+            </clipPath>
+            <marker id="vlyArrow" markerWidth="6" markerHeight="6"
+                    refX="5" refY="3" orient="auto">
+              <path d="M0,.5 L5,3 L0,5.5" fill="none"
+                    stroke="rgba(50,195,230,0.78)" stroke-width="1"/>
+            </marker>
+            <filter id="vlyGlow">
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/>
+                       <feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <g clip-path="url(#vlyClip)">
+            <!-- base wash -->
+            <rect width="380" height="240" fill="url(#vlyGrad)"/>
+
+            <!-- ══════════════════════════════════
+                 DIRECTION COMPASS / WIND VANE
+                 (left-center)
+                 ══════════════════════════════════ -->
+
+            <!-- static outer orbit -->
+            <circle cx="103" cy="118" r="46" fill="none"
+                    stroke="rgba(35,170,208,0.10)" stroke-width="1"
+                    stroke-dasharray="6 8"/>
+
+            <!-- slow spinning vane -->
+            <g transform="translate(103,118)"
+               style="animation:vane-spin 24s linear infinite;
+                      transform-origin:0px 0px">
+              <!-- vane blade 1 (N) -->
+              <path d="M0,0 L-5,-18 L0,-38 L5,-18 Z"
+                    fill="rgba(40,190,228,0.45)"
+                    stroke="rgba(80,215,245,0.50)" stroke-width=".7"/>
+              <!-- vane blade 2 (E) -->
+              <path d="M0,0 L18,-5 L38,0 L18,5 Z"
+                    fill="rgba(30,165,205,0.30)"
+                    stroke="rgba(60,195,230,0.35)" stroke-width=".6"/>
+              <!-- vane blade 3 (S) -->
+              <path d="M0,0 L5,18 L0,38 L-5,18 Z"
+                    fill="rgba(25,150,192,0.25)"
+                    stroke="rgba(50,182,220,0.30)" stroke-width=".6"/>
+              <!-- vane blade 4 (W) -->
+              <path d="M0,0 L-18,5 L-38,0 L-18,-5 Z"
+                    fill="rgba(20,138,180,0.22)"
+                    stroke="rgba(40,172,212,0.27)" stroke-width=".5"/>
+            </g>
+
+            <!-- counter-spin ring nodes -->
+            <g transform="translate(103,118)"
+               style="animation:vane-spin 16s linear infinite reverse;
+                      transform-origin:0px 0px">
+              <circle cx="28"  cy="0"   r="3.8"
+                      fill="rgba(42,192,228,0.55)"
+                      stroke="rgba(95,225,248,0.58)" stroke-width=".8"
+                      style="animation:pulse-node 3s 0s ease-in-out infinite"/>
+              <circle cx="-28" cy="0"   r="3.2"
+                      fill="rgba(32,172,210,0.48)"
+                      stroke="rgba(80,215,242,0.52)" stroke-width=".7"
+                      style="animation:pulse-node 3s 1s ease-in-out infinite"/>
+              <circle cx="0"   cy="-28" r="3.5"
+                      fill="rgba(50,200,232,0.50)"
+                      stroke="rgba(105,228,250,0.55)" stroke-width=".75"
+                      style="animation:pulse-node 3s 2s ease-in-out infinite"/>
+              <circle cx="0"   cy="28"  r="3.0"
+                      fill="rgba(22,155,198,0.44)"
+                      stroke="rgba(68,205,238,0.48)" stroke-width=".7"
+                      style="animation:pulse-node 3s 1.5s ease-in-out infinite"/>
+            </g>
+
+            <!-- burst ripples -->
+            <circle cx="103" cy="118" r="4" fill="none"
+                    stroke="rgba(50,198,232,0.62)" stroke-width="1.2"
+                    style="animation:ripple-soft 3.4s ease-out infinite"/>
+            <circle cx="103" cy="118" r="4" fill="none"
+                    stroke="rgba(35,175,215,0.40)" stroke-width=".8"
+                    style="animation:ripple-soft 3.4s ease-out 1.7s infinite"/>
+
+            <!-- center core -->
+            <circle cx="103" cy="118" r="8"
+                    fill="rgba(22,130,175,0.38)"
+                    style="animation:glow-soft 3.2s ease-in-out infinite"/>
+            <circle cx="103" cy="118" r="4.2"
+                    fill="rgba(52,200,235,0.78)"/>
+            <circle cx="103" cy="118" r="1.8"
+                    fill="rgba(195,242,255,0.95)"/>
+
+            <!-- ── VELOCITY STREAKS (right of vane) ── -->
+            <!-- 3 horizontal motion lines -->
+            <line x1="132" y1="108" x2="155" y2="102"
+                  stroke="rgba(45,192,228,0.42)" stroke-width="1.0"
+                  stroke-dasharray="14 6"
+                  style="animation:beam-draw 2s .1s both ease"/>
+            <line x1="134" y1="118" x2="158" y2="118"
+                  stroke="rgba(35,178,215,0.36)" stroke-width=".9"
+                  stroke-dasharray="14 6"
+                  style="animation:beam-draw 2s .3s both ease"/>
+            <line x1="132" y1="128" x2="155" y2="134"
+                  stroke="rgba(28,162,202,0.32)" stroke-width=".8"
+                  stroke-dasharray="12 6"
+                  style="animation:beam-draw 2s .5s both ease"/>
+
+            <!-- sliding streak accents -->
+            <line x1="68" y1="98"  x2="90" y2="98"
+                  stroke="rgba(40,185,222,0.28)" stroke-width=".8"
+                  stroke-dasharray="18"
+                  style="animation:streak-slide 3.5s 0s linear infinite"/>
+            <line x1="62" y1="118" x2="84" y2="118"
+                  stroke="rgba(30,168,208,0.22)" stroke-width=".7"
+                  stroke-dasharray="16"
+                  style="animation:streak-slide 3.5s .8s linear infinite"/>
+            <line x1="68" y1="138" x2="90" y2="138"
+                  stroke="rgba(22,155,196,0.20)" stroke-width=".7"
+                  stroke-dasharray="14"
+                  style="animation:streak-slide 3.5s 1.6s linear infinite"/>
+
+            <!-- ── TOP-LEFT ARROW CLUSTER ── -->
+            <!-- main direction arrow -->
+            <g style="animation:arrow-fly 2.2s ease-in-out infinite">
+              <path d="M 64 72 L 88 72"
+                    fill="none" stroke="rgba(50,198,232,0.55)"
+                    stroke-width="1.8" stroke-linecap="round"
+                    marker-end="url(#vlyArrow)"
+                    stroke-dasharray="24"
+                    style="animation:path-trace 1.8s .2s both ease"/>
+              <path d="M 64 80 L 82 80"
+                    fill="none" stroke="rgba(38,182,218,0.40)"
+                    stroke-width="1.2" stroke-linecap="round"
+                    stroke-dasharray="18"
+                    style="animation:path-trace 1.8s .5s both ease"/>
+              <path d="M 64 88 L 78 88"
+                    fill="none" stroke="rgba(28,165,205,0.30)"
+                    stroke-width=".9" stroke-linecap="round"
+                    stroke-dasharray="14"
+                    style="animation:path-trace 1.8s .8s both ease"/>
+            </g>
+
+            <!-- twinkling accent dots -->
+            <circle cx="68"  cy="62"  r="1.5"
+                    fill="rgba(80,215,245,0.70)"
+                    style="animation:twinkle 3.5s 0s ease-in-out infinite"/>
+            <circle cx="142" cy="84"  r="1.3"
+                    fill="rgba(62,200,235,0.60)"
+                    style="animation:twinkle 3.5s .9s ease-in-out infinite"/>
+            <circle cx="72"  cy="154" r="1.4"
+                    fill="rgba(50,190,228,0.58)"
+                    style="animation:twinkle 3.5s 1.8s ease-in-out infinite"/>
+            <circle cx="138" cy="152" r="1.2"
+                    fill="rgba(40,178,218,0.52)"
+                    style="animation:twinkle 3.5s 2.7s ease-in-out infinite"/>
+
+            <!-- ══════════════════════════════════
+                 WORD TRANSFORMATION CHAINS
+                 ══════════════════════════════════ -->
+            <!-- formula header -->
+            <text x="168" y="37"
+                  font-family="Inter,sans-serif" font-size="7.5" font-weight="700"
+                  letter-spacing=".12em" fill="rgba(42,182,218,0.50)">
+              [‑ve adj] + ‑ly → [in a ___ way]
+            </text>
+
+            <!-- left bracket -->
+            <path d="M 158 42 L 152 42 L 152 148 L 158 148"
+                  fill="none" stroke="rgba(38,175,212,0.24)" stroke-width="1"/>
+            <text x="144" y="86" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                  letter-spacing=".1em" fill="rgba(38,172,210,0.40)"
+                  transform="rotate(-90,144,86)">ADVERB</text>
+
+            <!-- row 1: activ → actively -->
+            <rect x="168" y="46" width="44" height="15" rx="4"
+                  fill="rgba(3,14,22,0.58)" stroke="rgba(36,172,210,0.24)" stroke-width=".7"/>
+            <text x="190" y="57.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8" font-weight="600"
+                  fill="rgba(118,210,240,0.88)"
+                  style="animation:word-fade 4.2s 0s infinite">activ·e</text>
+            <path d="M 214 53.5 L 225 53.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="227" y="47" width="22" height="13" rx="3"
+                  fill="rgba(8,42,62,0.62)" stroke="rgba(72,212,242,0.48)" stroke-width=".8"/>
+            <text x="238" y="56.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                  fill="rgba(175,238,255,0.94)">+ly</text>
+            <path d="M 251 53.5 L 262 53.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="264" y="44" width="56" height="19" rx="5"
+                  fill="rgba(4,18,30,0.60)" stroke="rgba(42,185,220,0.30)" stroke-width=".7"/>
+            <text x="292" y="57" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8.5" font-weight="700"
+                  fill="rgba(158,228,248,0.94)"
+                  style="animation:word-fade 4.2s .5s infinite">actively</text>
+
+            <!-- row 2: liv → lively / live·ly -->
+            <rect x="168" y="73" width="44" height="15" rx="4"
+                  fill="rgba(3,14,22,0.58)" stroke="rgba(36,172,210,0.24)" stroke-width=".7"/>
+            <text x="190" y="84.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8" font-weight="600"
+                  fill="rgba(118,210,240,0.88)"
+                  style="animation:word-fade 4.2s .8s infinite">liv·e</text>
+            <path d="M 214 80.5 L 225 80.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="227" y="74" width="22" height="13" rx="3"
+                  fill="rgba(8,42,62,0.62)" stroke="rgba(72,212,242,0.48)" stroke-width=".8"/>
+            <text x="238" y="83.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                  fill="rgba(175,238,255,0.94)">+ly</text>
+            <path d="M 251 80.5 L 262 80.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="264" y="71" width="56" height="19" rx="5"
+                  fill="rgba(4,18,30,0.60)" stroke="rgba(42,185,220,0.30)" stroke-width=".7"/>
+            <text x="292" y="84" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8.5" font-weight="700"
+                  fill="rgba(158,228,248,0.94)"
+                  style="animation:word-fade 4.2s 1.3s infinite">lively</text>
+
+            <!-- row 3: massiv → massively -->
+            <rect x="168" y="100" width="44" height="15" rx="4"
+                  fill="rgba(3,14,22,0.58)" stroke="rgba(36,172,210,0.24)" stroke-width=".7"/>
+            <text x="190" y="111.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8" font-weight="600"
+                  fill="rgba(118,210,240,0.88)"
+                  style="animation:word-fade 4.2s 1.6s infinite">massiv·e</text>
+            <path d="M 214 107.5 L 225 107.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="227" y="101" width="22" height="13" rx="3"
+                  fill="rgba(8,42,62,0.62)" stroke="rgba(72,212,242,0.48)" stroke-width=".8"/>
+            <text x="238" y="110.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                  fill="rgba(175,238,255,0.94)">+ly</text>
+            <path d="M 251 107.5 L 262 107.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="264" y="98" width="56" height="19" rx="5"
+                  fill="rgba(4,18,30,0.60)" stroke="rgba(42,185,220,0.30)" stroke-width=".7"/>
+            <text x="292" y="111" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8.5" font-weight="700"
+                  fill="rgba(158,228,248,0.94)"
+                  style="animation:word-fade 4.2s 2.1s infinite">massively</text>
+
+            <!-- row 4: creativ → creatively -->
+            <rect x="168" y="127" width="44" height="15" rx="4"
+                  fill="rgba(3,14,22,0.58)" stroke="rgba(36,172,210,0.24)" stroke-width=".7"/>
+            <text x="190" y="138.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8" font-weight="600"
+                  fill="rgba(118,210,240,0.88)"
+                  style="animation:word-fade 4.2s 2.4s infinite">creativ·e</text>
+            <path d="M 214 134.5 L 225 134.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="227" y="128" width="22" height="13" rx="3"
+                  fill="rgba(8,42,62,0.62)" stroke="rgba(72,212,242,0.48)" stroke-width=".8"/>
+            <text x="238" y="137.5" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="7" font-weight="700"
+                  fill="rgba(175,238,255,0.94)">+ly</text>
+            <path d="M 251 134.5 L 262 134.5" fill="none"
+                  stroke="rgba(48,192,228,0.55)" stroke-width="1.2"
+                  marker-end="url(#vlyArrow)"/>
+            <rect x="264" y="125" width="56" height="19" rx="5"
+                  fill="rgba(4,18,30,0.60)" stroke="rgba(42,185,220,0.30)" stroke-width=".7"/>
+            <text x="292" y="138" text-anchor="middle"
+                  font-family="Inter,sans-serif" font-size="8.5" font-weight="700"
+                  fill="rgba(158,228,248,0.94)"
+                  style="animation:word-fade 4.2s 2.9s infinite">creatively</text>
+
+            <!-- ══════════════════════════════════
+                 ADVERB BARS  (lower-right)
+                 ══════════════════════════════════ -->
+            <g transform="translate(264,158)">
+              <text x="0" y="0" font-family="Inter,sans-serif" font-size="6.5" font-weight="700"
+                    letter-spacing=".12em" fill="rgba(42,185,220,0.50)">MANNER</text>
+              <rect x="0" y="5" width="72" height="4" rx="2" fill="rgba(3,14,22,0.55)"/>
+              <rect x="0" y="5" height="4" rx="2" fill="rgba(42,192,228,0.66)"
+                    style="--bw:72px;animation:bar-fill 2.6s .3s both ease-out;width:0"/>
+            </g>
+            <g transform="translate(264,172)">
+              <text x="0" y="0" font-family="Inter,sans-serif" font-size="6.5" font-weight="700"
+                    letter-spacing=".12em" fill="rgba(32,168,205,0.44)">DEGREE</text>
+              <rect x="0" y="5" width="72" height="4" rx="2" fill="rgba(3,14,22,0.55)"/>
+              <rect x="0" y="5" height="4" rx="2" fill="rgba(33,175,212,0.60)"
+                    style="--bw:60px;animation:bar-fill 2.6s .7s both ease-out;width:0"/>
+            </g>
+            <g transform="translate(264,186)">
+              <text x="0" y="0" font-family="Inter,sans-serif" font-size="6.5" font-weight="700"
+                    letter-spacing=".12em" fill="rgba(24,150,190,0.40)">ADVERB</text>
+              <rect x="0" y="5" width="72" height="4" rx="2" fill="rgba(3,14,22,0.55)"/>
+              <rect x="0" y="5" height="4" rx="2" fill="rgba(25,158,198,0.54)"
+                    style="--bw:50px;animation:bar-fill 2.6s 1.1s both ease-out;width:0"/>
+            </g>
+
+            <!-- ══════════════════════════════════
+                 WORD CLOUD  (bottom)
+                 ══════════════════════════════════ -->
+            <text x="14"  y="207" font-family="Inter,sans-serif" font-size="8"
+                  font-weight="600" fill="rgba(35,172,208,0.26)" letter-spacing=".05em"
+                  style="animation:float-word 6.2s 0s ease-in-out infinite">natively</text>
+            <text x="88"  y="215" font-family="Inter,sans-serif" font-size="7.5"
+                  font-weight="600" fill="rgba(44,185,220,0.23)" letter-spacing=".05em"
+                  style="animation:float-word 6.2s 1.2s ease-in-out infinite">bravely</text>
+            <text x="152" y="208" font-family="Inter,sans-serif" font-size="8"
+                  font-weight="600" fill="rgba(55,198,230,0.24)" letter-spacing=".05em"
+                  style="animation:float-word 6.2s 2.4s ease-in-out infinite">lovingly</text>
+            <text x="224" y="216" font-family="Inter,sans-serif" font-size="7.5"
+                  font-weight="600" fill="rgba(38,178,215,0.22)" letter-spacing=".05em"
+                  style="animation:float-word 6.2s 3.6s ease-in-out infinite">swiftly</text>
+
+            <!-- ── +VLY big badge (top-right) ── -->
+            <g transform="translate(316,16)">
+              <rect x="0" y="0" width="46" height="22" rx="6"
+                    fill="rgba(6,34,52,0.66)" stroke="rgba(55,200,235,0.44)" stroke-width="1"/>
+              <text x="23" y="14.5" text-anchor="middle"
+                    font-family="Inter,sans-serif" font-size="11" font-weight="800"
+                    fill="rgba(172,235,252,0.94)" letter-spacing=".04em">‑vly</text>
+            </g>
+
+            <!-- registration corners -->
+            <path d="M 18 10 L 10 10 L 10 18"    fill="none"
+                  stroke="rgba(40,182,218,0.20)" stroke-width="1"/>
+            <path d="M 362 10 L 370 10 L 370 18"  fill="none"
+                  stroke="rgba(40,182,218,0.20)" stroke-width="1"/>
+            <path d="M 18 230 L 10 230 L 10 222"  fill="none"
+                  stroke="rgba(40,182,218,0.20)" stroke-width="1"/>
+            <path d="M 362 230 L 370 230 L 370 222" fill="none"
+                  stroke="rgba(40,182,218,0.20)" stroke-width="1"/>
+
+          </g>
+        </svg>
+      </div>
+
+      <!-- flow particles -->
+      <div id="flowContainer"></div>
+
+      <!-- letter tag -->
+      <div class="letter-tag">‑vly<span class="vly-dot"></span></div>
+
+      <!-- hover meanings overlay -->
+      <div class="card-meanings">
+        <div class="mean-item"><span>🧭</span><span>In a manner</span></div>
+        <div class="mean-item"><span>💫</span><span>Expressively</span></div>
+        <div class="mean-item"><span>🌊</span><span>With quality</span></div>
+        <div class="mean-item"><span>✦</span><span>Adverb form</span></div>
+      </div>
+
+      <!-- card text content -->
+      <div class="card-content">
+        <div class="name-main">vly<span class="name-dot">.</span>kr</div>
+        <div class="name-sub">the adverb suffix · actively &amp; expressively</div>
+        <div class="meta-row">suffix — adverbial</div>
+        <div class="badge"><span>🧭</span><span>‑VLY</span></div>
+        <div class="domain-url">vly<span class="domain-tld">.kr</span></div>
+      </div>
+
+    </div><!-- .card -->
+  </div><!-- .card-wrap -->
+</div><!-- .scene -->
+
+<script>
+(function(){
+  const wrap   = document.getElementById('cardWrap');
+  const holo   = document.getElementById('cardHolo');
+  const spot   = document.getElementById('cardSpot');
+  const flowCt = document.getElementById('flowContainer');
+
+  let tx=0, ty=0, cx=0, cy=0;
+  const LERP=0.08, MAX_Y=13, MAX_X=10;
+  let raf;
+
+  function lerp(a,b,t){ return a+(b-a)*t }
+
+  function tick(){
+    cx=lerp(cx,tx,LERP);
+    cy=lerp(cy,ty,LERP);
+    wrap.style.transform=
+      `rotateY(${cx}deg) rotateX(${cy}deg) scale(1.026)`;
+    raf=requestAnimationFrame(tick);
+  }
+
+  wrap.addEventListener('mouseenter',()=>{
+    wrap.classList.remove('is-idle');
+    wrap.style.animation='none';
+    cancelAnimationFrame(raf);
+    tick();
+  });
+
+  wrap.addEventListener('mousemove',e=>{
+    const r  = wrap.getBoundingClientRect();
+    const nx = ((e.clientX-r.left)/r.width  -.5)*2;
+    const ny = ((e.clientY-r.top) /r.height -.5)*2;
+    tx =  nx*MAX_Y;
+    ty = -ny*MAX_X;
+    const px=(e.clientX-r.left)/r.width *100;
+    const py=(e.clientY-r.top) /r.height*100;
+    holo.style.setProperty('--mx',`${px}%`);
+    holo.style.setProperty('--my',`${py}%`);
+    holo.style.setProperty('--r', `${nx*180}deg`);
+    spot.style.setProperty('--mx',`${px}%`);
+    spot.style.setProperty('--my',`${py}%`);
+  });
+
+  wrap.addEventListener('mouseleave',()=>{
+    tx=0; ty=0;
+    setTimeout(()=>{
+      cancelAnimationFrame(raf);
+      wrap.style.transform='';
+      wrap.style.animation='float-idle 9.5s ease-in-out infinite';
+    },380);
+  });
+
+  /* ── flow particles ── */
+  const FLOWS=[
+    {x: 6,  s:1.6, c:'rgba(45,198,232,0.72)', dur:10.2, del:0.0, dx:' 8px'},
+    {x:14,  s:1.2, c:'rgba(32,178,215,0.64)', dur:12.4, del:0.9, dx:'-11px'},
+    {x:24,  s:1.8, c:'rgba(60,212,240,0.70)', dur: 9.4, del:1.8, dx:' 14px'},
+    {x:34,  s:1.3, c:'rgba(25,160,202,0.60)', dur:13.2, del:2.6, dx:' -7px'},
+    {x:45,  s:1.7, c:'rgba(52,205,235,0.68)', dur:10.8, del:0.5, dx:' 11px'},
+    {x:54,  s:1.4, c:'rgba(38,188,222,0.64)', dur:12.8, del:2.1, dx:'-13px'},
+    {x:63,  s:1.9, c:'rgba(72,218,244,0.70)', dur: 9.0, del:3.5, dx:' 16px'},
+    {x:72,  s:1.1, c:'rgba(22,152,196,0.58)', dur:12.0, del:1.3, dx:' -8px'},
+    {x:81,  s:1.6, c:'rgba(58,208,238,0.67)', dur:10.4, del:3.0, dx:' 12px'},
+    {x:89,  s:1.3, c:'rgba(35,182,218,0.63)', dur:12.9, del:1.6, dx:'-14px'},
+    {x:95,  s:1.5, c:'rgba(48,198,230,0.67)', dur:10.8, del:4.3, dx:' 9px'},
+    {x:49,  s:1.4, c:'rgba(40,190,225,0.65)', dur:11.5, del:5.0, dx:'-10px'},
+  ];
+
+  FLOWS.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='flow';
+    d.style.cssText=`
+      left:${p.x}%;
+      bottom:${-(p.s*2)}px;
+      width:${p.s}px;
+      height:${p.s}px;
+      background:${p.c};
+      box-shadow:0 0 ${p.s*3.2}px ${p.c};
+      --dx:${p.dx};
+      animation-duration:${p.dur}s;
+      animation-delay:${p.del}s;
+    `;
+    flowCt.appendChild(d);
+  });
+
+})();
+</script>
+</body>
+</html>
